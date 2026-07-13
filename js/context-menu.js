@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Create Context Menu HTML
+  // Create Context Menu HTML matching new design system
   const menuHtml = `
-    <div id="custom-context-menu">
-      <div class="context-menu-item" id="cm-resume">
-        <i>📄</i> Download CV
-      </div>
-      <div class="context-menu-item" id="cm-contact">
-        <i>✉️</i> Contact Me
-      </div>
-      <div class="context-menu-divider"></div>
-      <div class="context-menu-item" id="cm-godmode">
-        <i>🧊</i> Toggle God Mode
-      </div>
-      <div class="context-menu-item" id="cm-music">
-        <i>🎧</i> Play/Pause Lofi
-      </div>
-      <div class="context-menu-divider"></div>
-      <div class="context-menu-item" id="cm-terminal">
-        <i>>_</i> Open Terminal
-      </div>
+    <div id="custom-context-menu" class="custom-context-menu">
+      <button class="context-item" id="cm-resume">
+        <span>📄</span> Download CV
+      </button>
+      <button class="context-item" id="cm-contact">
+        <span>✉️</span> Contact Me
+      </button>
+      <div class="context-divider"></div>
+      <button class="context-item" id="cm-godmode">
+        <span>🧊</span> Toggle God Mode
+      </button>
+      <button class="context-item" id="cm-music">
+        <span>🎧</span> Play/Pause Lofi
+      </button>
+      <div class="context-divider"></div>
+      <button class="context-item" id="cm-terminal">
+        <span>>_</span> Open Terminal
+      </button>
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', menuHtml);
@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const { clientX: mouseX, clientY: mouseY } = e;
     
     // Boundary checks
-    const menuWidth = menu.offsetWidth || 250;
-    const menuHeight = menu.offsetHeight || 250;
+    const menuWidth = 180; // approximate width
+    const menuHeight = 220; // approximate height
     
     let x = mouseX;
     let y = mouseY;
     
-    if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth;
-    if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight;
+    if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth - 10;
+    if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight - 10;
     
     menu.style.left = `${x}px`;
     menu.style.top = `${y}px`;
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add click actions
   document.getElementById('cm-resume').addEventListener('click', () => {
-    alert('Resume download triggered!'); // Replace with actual link
+    alert('Resume download triggered!'); 
   });
   
   document.getElementById('cm-contact').addEventListener('click', () => {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('cm-terminal').addEventListener('click', () => {
-    const terminal = document.getElementById('developer-terminal');
-    if (terminal) terminal.classList.add('open');
+    const terminal = document.getElementById('terminal-overlay');
+    if (terminal) terminal.classList.add('active');
   });
 });

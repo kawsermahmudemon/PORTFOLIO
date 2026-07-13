@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Cache theme colors (update on theme change via MutationObserver)
   let isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  let fillColor = isDark ? "rgba(99,102,241,0.25)" : "rgba(79,70,229,0.15)";
-  let strokeColor = isDark ? "rgba(99,102,241," : "rgba(79,70,229,";
+  let fillColor = isDark ? "rgba(245,158,11,0.2)" : "rgba(217,119,6,0.12)";
+  let strokeColor = isDark ? "rgba(245,158,11," : "rgba(217,119,6,";
 
   const themeObserver = new MutationObserver(() => {
     isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    fillColor = isDark ? "rgba(99,102,241,0.25)" : "rgba(79,70,229,0.15)";
-    strokeColor = isDark ? "rgba(99,102,241," : "rgba(79,70,229,";
+    fillColor = isDark ? "rgba(245,158,11,0.2)" : "rgba(217,119,6,0.12)";
+    strokeColor = isDark ? "rgba(245,158,11," : "rgba(217,119,6,";
   });
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 

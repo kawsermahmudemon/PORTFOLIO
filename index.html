@@ -39,7 +39,7 @@
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#7b2cbf">
+  <meta name="theme-color" content="#f59e0b">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -55,6 +55,9 @@
   </script>
 </head>
 <body>
+
+<!-- ANIMATED MESH GRADIENT BACKGROUND -->
+<div class="mesh-gradient" aria-hidden="true"></div>
 
 <!-- PRELOADER -->
 <div class="preloader" id="preloader" aria-hidden="true">
@@ -100,10 +103,10 @@
       
       <!-- Theme Color Switcher -->
       <div class="theme-swatches" aria-label="Color themes">
-        <div class="theme-swatch swatch-default active" data-palette="default" title="Cyberpunk Purple"></div>
-        <div class="theme-swatch swatch-blue" data-palette="blue" title="Neon Blue"></div>
-        <div class="theme-swatch swatch-green" data-palette="green" title="Hacker Green"></div>
-        <div class="theme-swatch swatch-orange" data-palette="orange" title="Sunset Orange"></div>
+        <div class="theme-swatch swatch-default active" data-palette="default" title="Warm Gold"></div>
+        <div class="theme-swatch swatch-blue" data-palette="blue" title="Ocean Blue"></div>
+        <div class="theme-swatch swatch-green" data-palette="green" title="Forest Green"></div>
+        <div class="theme-swatch swatch-orange" data-palette="orange" title="Neon Purple"></div>
       </div>
       
       <!-- Micro-sounds Toggle -->
@@ -124,8 +127,7 @@
 <!-- PARTICLE CANVAS -->
 <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-<!-- WEBGL FLUID CANVAS -->
-<canvas id="fluid-canvas" aria-hidden="true" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
+<!-- Background handled by CSS mesh gradient — zero JS, better performance -->
 
 <!-- ===== HERO SECTION ===== -->
 <section class="hero" id="hero">
@@ -158,9 +160,10 @@
       <button id="btn-showreel" class="btn-ghost magnetic" data-magnetic>
         <span>🎥 Watch Reel</span>
       </button>
-      <a href="#contact" class="btn-ghost magnetic" data-magnetic>
-        <span>Let's Talk</span>
-      </a>
+      <button class="btn-ghost magnetic copy-email" data-magnetic aria-label="Copy Email">
+        <span class="copy-text">Copy Email</span>
+        <span class="copy-success" style="display:none; color:var(--success);">Copied! ✓</span>
+      </button>
       <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" class="btn-ghost magnetic" data-magnetic aria-label="LinkedIn Profile">
         <span>LinkedIn</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
@@ -229,28 +232,42 @@
         </div>
 
         <div id="about-funfacts" class="about-tab-panel">
-          <div class="fun-facts-grid">
-            <div class="fun-fact"><span class="fun-fact-icon">🌍</span> Global Finalist at the 5th 3ZERO Leadership Challenge (Japan)</div>
-            <div class="fun-fact"><span class="fun-fact-icon">🎤</span> Selected as a youth speaker at ICCCAD & Gobeshona Conference</div>
-            <div class="fun-fact"><span class="fun-fact-icon">🩸</span> Founded the Shohagpur Blood Donation Club (App & Web)</div>
-            <div class="fun-fact"><span class="fun-fact-icon">📚</span> Taught 45 underprivileged street children every Saturday for 3 years</div>
-            <div class="fun-fact"><span class="fun-fact-icon">🛍️</span> Built an e-commerce ecosystem connecting 200+ rural Taant weavers</div>
-            <div class="fun-fact"><span class="fun-fact-icon">🗣️</span> Champion & Best Speaker in Inter-School Debate (among 147 teams)</div>
+          <div class="bento-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+            <!-- Bento Card 1 -->
+            <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: center; grid-column: span 2;">
+              <span style="font-size: 2rem; margin-bottom: 8px;">🌍</span>
+              <h4 style="margin: 0 0 4px 0; font-size: 1.1rem;">Global Finalist</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Japan 3ZERO Leadership Challenge</p>
+            </div>
+            
+            <!-- Bento Card 2 -->
+            <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="font-size: 1.5rem; margin-bottom: 8px;">🩸</span>
+              <h4 style="margin: 0 0 4px 0; font-size: 1rem;">Founder</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">Shohagpur Blood Club</p>
+            </div>
+            
+            <!-- Bento Card 3 -->
+            <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="font-size: 1.5rem; margin-bottom: 8px;">🛍️</span>
+              <h4 style="margin: 0 0 4px 0; font-size: 1rem;">E-Commerce</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">Connecting 200+ rural weavers</p>
+            </div>
           </div>
         </div>
 
-        <div class="about-stats" style="margin-top: 32px;">
-          <div class="stat-card glass-card">
-            <div class="stat-number" data-count="150">0</div>
-            <div class="stat-label">Thousand+<br>Network Reach</div>
+        <div class="about-stats bento-grid" style="margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div class="stat-card glass-card" style="padding: 24px 16px;">
+            <div class="stat-number" data-count="150" style="font-size: 2.5rem; color: var(--accent-1); margin-bottom: 8px;">0</div>
+            <div class="stat-label" style="font-size: 0.8rem;">Thousand+<br>Network Reach</div>
           </div>
-          <div class="stat-card glass-card">
-            <div class="stat-number" data-count="75">0</div>
-            <div class="stat-label">Girls Trained<br>in STEM</div>
+          <div class="stat-card glass-card" style="padding: 24px 16px;">
+            <div class="stat-number" data-count="75" style="font-size: 2.5rem; color: var(--accent-1); margin-bottom: 8px;">0</div>
+            <div class="stat-label" style="font-size: 0.8rem;">Girls Trained<br>in STEM</div>
           </div>
-          <div class="stat-card glass-card">
-            <div class="stat-number" data-count="1">0</div>
-            <div class="stat-label">Class Rank<br>Academic Excellence</div>
+          <div class="stat-card glass-card" style="padding: 24px 16px;">
+            <div class="stat-number" data-count="1" style="font-size: 2.5rem; color: var(--accent-1); margin-bottom: 8px;">0</div>
+            <div class="stat-label" style="font-size: 0.8rem;">Class Rank<br>Academic Excellence</div>
           </div>
         </div>
         <a href="#" onclick="alert('Resume download triggered! Preparing PDF...'); return false;" class="btn-primary magnetic" data-magnetic style="margin-top:32px;">
@@ -348,8 +365,8 @@
       <div class="projects-grid" id="dynamic-projects-grid">
       <!-- Project 1 -->
       <article class="project-card" data-category="web" data-animate="fade-up" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);">
-          <div class="project-image-content">🩸</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?q=80&w=800&auto=format&fit=crop" alt="Shohagpur Blood Donation Club" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -367,8 +384,8 @@
       </article>
       <!-- Project 2 -->
       <article class="project-card" data-category="ai" data-animate="fade-up" data-delay="0.1" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#2d1b4e 0%,#4a1942 50%,#8b2252 100%);">
-          <div class="project-image-content">🌱</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=800&auto=format&fit=crop" alt="Smart Agriculture IoT" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
@@ -387,8 +404,8 @@
       </article>
       <!-- Project 3 -->
       <article class="project-card" data-category="mobile" data-animate="fade-up" data-delay="0.2" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2d6a9f 100%);">
-          <div class="project-image-content">🤖</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800&auto=format&fit=crop" alt="Autonomous Service Robot" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
@@ -407,8 +424,8 @@
       </article>
       <!-- Project 4 -->
       <article class="project-card" data-category="web" data-animate="fade-up" data-delay="0.3" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#1a0a2e 0%,#3d1560 50%,#6b21a8 100%);">
-          <div class="project-image-content">🛍️</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" alt="Belkuchi Digital Market" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -427,8 +444,8 @@
       </article>
       <!-- Project 5 -->
       <article class="project-card" data-category="web" data-animate="fade-up" data-delay="0.4" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#0d3b2e 0%,#1a5c40 50%,#2d8a5c 100%);">
-          <div class="project-image-content">🛍️</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop" alt="EcoJute Tech Bags" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
@@ -447,8 +464,8 @@
       </article>
       <!-- Project 6 -->
       <article class="project-card" data-category="mobile" data-animate="fade-up" data-delay="0.5" data-tilt data-cursor-text="VIEW">
-        <div class="project-image" style="background:linear-gradient(135deg,#3e1a2e 0%,#6a2c50 50%,#9e3a7a 100%);">
-          <div class="project-image-content">🏥</div>
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop" alt="Rural Health App" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="project-overlay">
             <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -954,10 +971,13 @@
       <div class="contact-info" data-animate="fade-right">
         <div class="contact-card glass-card">
           <div class="contact-card-icon">📧</div>
-          <div>
+          <div style="flex:1;">
             <h4>Email</h4>
             <p>mdemonsarker.personal@gmail.com</p>
           </div>
+          <button class="copy-email-icon copy-email" aria-label="Copy Email" style="background:none; border:none; cursor:pointer; color:var(--text-secondary); transition:color 0.2s;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg>
+          </button>
         </div>
         <div class="contact-card glass-card">
           <div class="contact-card-icon">📱</div>
@@ -1047,21 +1067,19 @@
   &gt;_
 </div>
 
-<div class="terminal-overlay" id="terminal-overlay">
+<div class="terminal-modal" id="terminal-overlay">
   <div class="terminal-window">
     <div class="terminal-header">
-      <div class="terminal-controls">
-        <div class="term-btn term-close" id="terminal-close"></div>
-        <div class="term-btn term-min"></div>
-        <div class="term-btn term-max"></div>
-      </div>
+      <div class="terminal-dot red" id="terminal-close" style="cursor: pointer;"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
       <div class="terminal-title">visitor@emon.dev:~</div>
     </div>
     <div class="terminal-body">
       <div class="terminal-output" id="terminal-output"></div>
-      <div class="term-input-line">
-        <span class="term-prompt">visitor@emon.dev:~$</span>
-        <input type="text" class="term-input" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+      <div class="terminal-input-line">
+        <span class="prompt">visitor@emon.dev:~$</span>
+        <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
       </div>
     </div>
   </div>

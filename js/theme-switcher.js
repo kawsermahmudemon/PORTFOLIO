@@ -1,29 +1,29 @@
 /*
- * Theme Switcher
- * Handles dynamically changing the primary and secondary accent colors
+ * Theme Switcher v2
+ * Updated palettes for warm dark design system
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   const themeSwatches = document.querySelectorAll('.theme-swatch');
   const root = document.documentElement;
 
-  // Pre-defined color palettes
+  // Color palettes matching the new design system
   const palettes = {
     default: {
-      primary: '#6b21a8',
-      secondary: '#db2777'
+      primary: '#f59e0b',
+      secondary: '#f97316'
     },
     blue: {
-      primary: '#1d4ed8',
-      secondary: '#0ea5e9'
+      primary: '#3b82f6',
+      secondary: '#06b6d4'
     },
     green: {
-      primary: '#16a34a',
+      primary: '#22c55e',
       secondary: '#84cc16'
     },
     orange: {
-      primary: '#ea580c',
-      secondary: '#eab308'
+      primary: '#a855f7',
+      secondary: '#ec4899'
     }
   };
 
@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedPalette = localStorage.getItem('portfolio-palette');
   if (savedPalette && palettes[savedPalette]) {
     applyPalette(savedPalette);
+    themeSwatches.forEach(s => {
+      s.classList.toggle('active', s.dataset.palette === savedPalette);
+    });
   }
 
   themeSwatches.forEach(swatch => {
@@ -38,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const theme = e.currentTarget.dataset.palette;
       applyPalette(theme);
       
-      // Update UI
       themeSwatches.forEach(s => s.classList.remove('active'));
       e.currentTarget.classList.add('active');
     });
@@ -48,19 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const palette = palettes[themeName];
     if (!palette) return;
 
-    // Set CSS Variables
-    root.style.setProperty('--primary', palette.primary);
-    root.style.setProperty('--secondary', palette.secondary);
-    
-    // Create gradient
+    root.style.setProperty('--accent-1', palette.primary);
+    root.style.setProperty('--accent-2', palette.secondary);
+    root.style.setProperty('--accent-soft', hexToRgba(palette.primary, 0.12));
+    root.style.setProperty('--glow', hexToRgba(palette.primary, 0.12));
+    root.style.setProperty('--glow-strong', hexToRgba(palette.primary, 0.25));
+
     const gradient = `linear-gradient(135deg, ${palette.primary} 0%, ${palette.secondary} 100%)`;
     root.style.setProperty('--gradient', gradient);
+    root.style.setProperty('--gradient-text', `linear-gradient(135deg, ${palette.secondary}, ${palette.primary}, ${palette.secondary})`);
 
     localStorage.setItem('portfolio-palette', themeName);
+  }
 
-    // If particles are active, update them too
-    if (window.particleSystem) {
-      window.particleSystem.updateColors(palette.primary, palette.secondary);
-    }
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 });
