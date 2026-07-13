@@ -1071,64 +1071,60 @@
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<!-- Performance utilities (must load before other scripts) -->
+<script src="js/perf-utils.js"></script>
+
+<!-- Core scroll & animation -->
 <script src="js/apple-scroll.js"></script>
 <script src="js/smooth-scroll.js"></script>
+<script src="js/scroll-animations.js"></script>
+
+<!-- Visual effects -->
 <script src="js/particles.js"></script>
 <script src="js/cursor.js"></script>
-<script src="js/scroll-animations.js"></script>
-<script src="js/theme.js"></script>
-<script src="js/dynamic-data.js"></script>
 <script src="js/tilt.js"></script>
+<script src="js/spotlight.js"></script>
+
+<!-- Theme & data -->
+<script src="js/theme.js"></script>
+<script src="js/theme-switcher.js"></script>
+<script src="js/dynamic-data.js"></script>
+
+<!-- UI components -->
 <script src="js/testimonials.js"></script>
 <script src="js/faq.js"></script>
 <script src="js/project-modal.js"></script>
 <script src="js/github-stats.js"></script>
-<!-- Custom Scripts -->
-<script src="js/animations.js"></script>
-<script src="js/main.js"></script>
-<script src="js/cursor.js"></script>
-<script src="js/admin-access.js"></script>
-<script src="js/konami.js"></script>
-<script src="js/ascii-globe.js"></script>
-<script src="js/widgets.js"></script>
-<script src="js/showreel.js"></script>
-<script src="js/fps-monitor.js"></script>
 <script src="js/blog-modal.js"></script>
 <script src="js/contact-form.js"></script>
-<script src="js/voice-ai.js"></script>
-<script src="js/god-mode.js"></script>
-<script src="js/terminal.js"></script>
-<script src="js/fluid-bg.js"></script>
-<script src="js/context-menu.js"></script>
-<script src="js/console-easter-egg.js"></script>
-
-<!-- Service Worker Registration -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then(registration => {
-        console.log('SW registered: ', registration);
-      }).catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
-    });
-  }
-</script>
-
-<script src="js/theme-switcher.js"></script>
-<script src="js/spotlight.js"></script>
-<script src="js/sounds.js"></script>
-<script src="js/terminal.js"></script>
 <script src="js/gallery.js"></script>
-<script src="js/physics-web.js"></script>
-<script src="js/presence.js"></script>
-<script src="js/emon-ai.js"></script>
-<script src="js/ascii-globe.js"></script>
+<script src="js/showreel.js"></script>
+
+<!-- Easter eggs & extras -->
 <script src="js/konami.js"></script>
-<script src="js/webgl-fluid.js"></script>
+<script src="js/ascii-globe.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/console-easter-egg.js"></script>
+<script src="js/context-menu.js"></script>
+
+<!-- Audio & voice -->
+<script src="js/sounds.js"></script>
 <script src="js/voice-ai.js"></script>
 <script src="js/lofi-player.js"></script>
-<script src="js/preloader.js"></script>
+
+<!-- Heavy background effects (load last) -->
+<script src="js/webgl-fluid.js"></script>
+<script src="js/physics-web.js"></script>
+
+<!-- Widgets & misc -->
+<script src="js/widgets.js"></script>
+<script src="js/fps-monitor.js"></script>
+<script src="js/presence.js"></script>
+<script src="js/emon-ai.js"></script>
+
+<!-- Main app (navigation, filters, magnetic) -->
 <script src="js/app.js"></script>
+<script src="js/preloader.js"></script>
 </body>
 </html>

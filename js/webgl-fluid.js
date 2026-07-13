@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════
-   WEBGL FLUID RIPPLE BACKGROUND
-   Minimalist WebGL Shader for background distortion
+   WEBGL FLUID RIPPLE BACKGROUND v2
+   Now pauses when off-screen, throttles mouse
    ══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('fluid-canvas');
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Resize canvas
   let width, height;
+  let resizeTimer;
   function resize() {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -24,7 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = height;
     gl.viewport(0, 0, width, height);
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 200);
+  });
   resize();
 
   // Shaders
@@ -38,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   `;
 
-  // Abstract liquid ripple shader
   const fsSource = `
     precision highp float;
     varying vec2 vUv;
@@ -46,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     uniform vec2 uMouse;
     uniform vec2 uResolution;
     
-    // Noise function
     vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
     vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
     vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -78,29 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
       vec2 st = gl_FragCoord.xy/uResolution.xy;
       st.x *= uResolution.x/uResolution.y;
       
-      // Mouse interaction
       vec2 mouse = uMouse;
       mouse.x *= uResolution.x/uResolution.y;
       float dist = distance(st, mouse);
       float mouseEffect = smoothstep(0.3, 0.0, dist);
       
-      // Liquid distortion
       vec2 pos = vec2(st * 3.0);
       float n = snoise(pos - uTime * 0.2);
       n += snoise(pos * 2.0 + uTime * 0.3) * 0.5;
       
-      // Add mouse ripple
       n += mouseEffect * 2.0 * sin(dist * 20.0 - uTime * 5.0);
       
-      // Colors based on theme CSS vars implicitly (darkish liquid)
-      vec3 colorA = vec3(0.05, 0.05, 0.08); // Dark bg
-      vec3 colorB = vec3(0.2, 0.15, 0.4); // Purple/indigo tint
+      vec3 colorA = vec3(0.05, 0.05, 0.08);
+      vec3 colorB = vec3(0.2, 0.15, 0.4);
       
       float mixVal = smoothstep(-1.0, 1.0, n);
       vec3 finalColor = mix(colorA, colorB, mixVal);
       
-      // If it's a light theme, we'd ideally read CSS, but shaders can't easily.
-      // We will make the liquid highly transparent to let the CSS background show through.
       float alpha = mixVal * 0.15 + mouseEffect * 0.2;
       
       gl_FragColor = vec4(finalColor, alpha);
@@ -150,17 +146,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const uResLoc = gl.getUniformLocation(program, "uResolution");
 
   let mouse = { x: 0.5, y: 0.5 };
+  let mouseMoveTicking = false;
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX / window.innerWidth;
-    mouse.y = 1.0 - (e.clientY / window.innerHeight);
-  });
+    if (mouseMoveTicking) return;
+    mouseMoveTicking = true;
+    requestAnimationFrame(() => {
+      mouse.x = e.clientX / window.innerWidth;
+      mouse.y = 1.0 - (e.clientY / window.innerHeight);
+      mouseMoveTicking = false;
+    });
+  }, { passive: true });
 
   // Enable alpha blending
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   let startTime = performance.now();
+  let isVisible = true;
+  let rafId;
+
   function render(time) {
+    if (!isVisible) return;
     const elapsed = (time - startTime) / 1000;
     
     gl.uniform1f(uTimeLoc, elapsed);
@@ -168,7 +174,30 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.uniform2f(uResLoc, width, height);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    requestAnimationFrame(render);
+    rafId = requestAnimationFrame(render);
   }
-  requestAnimationFrame(render);
+
+  // Only render when visible on screen
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!isVisible) {
+          isVisible = true;
+          startTime = performance.now();
+          rafId = requestAnimationFrame(render);
+        }
+      } else {
+        isVisible = false;
+        if (rafId) cancelAnimationFrame(rafId);
+      }
+    });
+  }, { threshold: 0, rootMargin: "100px" });
+
+  // Observe the hero section (fluid is only really visible there)
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    observer.observe(heroSection);
+  }
+
+  rafId = requestAnimationFrame(render);
 });

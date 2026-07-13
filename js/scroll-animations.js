@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════
-   SCROLL-TRIGGERED REVEAL SYSTEM v2
+   SCROLL-TRIGGERED REVEAL SYSTEM v3
+   Performance-optimized version
    ══════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
   // ── Reveal data-animate elements ──
@@ -61,29 +62,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   staggerContainers.forEach(el => staggerObserver.observe(el));
 
-  // ── Scroll progress bar ──
+  // ── Scroll progress bar (RAF-batched) ──
   const progressBar = document.getElementById("scroll-progress");
   if (progressBar) {
+    let scrollTicking = false;
     window.addEventListener("scroll", () => {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
-      progressBar.style.width = `${pct}%`;
-    });
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          const h = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+          progressBar.style.width = `${pct}%`;
+          scrollTicking = false;
+        });
+      }
+    }, { passive: true });
   }
 
-  // ── Parallax elements ──
+  // ── Parallax elements (RAF-batched) ──
   const parallaxElements = document.querySelectorAll("[data-parallax]");
   if (parallaxElements.length && !window.matchMedia("(pointer: coarse)").matches) {
+    let parallaxTicking = false;
     window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      parallaxElements.forEach(el => {
-        const speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
-        const rect = el.getBoundingClientRect();
-        const elCenter = rect.top + rect.height / 2;
-        const viewCenter = window.innerHeight / 2;
-        const offset = (elCenter - viewCenter) * speed;
-        el.style.transform = `translateY(${offset}px)`;
-      });
+      if (!parallaxTicking) {
+        parallaxTicking = true;
+        requestAnimationFrame(() => {
+          parallaxElements.forEach(el => {
+            const speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
+            const rect = el.getBoundingClientRect();
+            const elCenter = rect.top + rect.height / 2;
+            const viewCenter = window.innerHeight / 2;
+            const offset = (elCenter - viewCenter) * speed;
+            el.style.transform = `translateY(${offset}px)`;
+          });
+          parallaxTicking = false;
+        });
+      }
     }, { passive: true });
   }
 });

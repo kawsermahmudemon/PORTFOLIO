@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════
-   CONSTELLATION PARTICLE SYSTEM + GRADIENT ORBS
+   CONSTELLATION PARTICLE SYSTEM v2
+   Performance-optimized: cached theme, fewer DOM reads
    ══════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("particle-canvas");
@@ -11,6 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Performance detection
   const isLowEnd = navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : false;
+
+  // Cache theme colors (update on theme change via MutationObserver)
+  let isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  let fillColor = isDark ? "rgba(99,102,241,0.25)" : "rgba(79,70,229,0.15)";
+  let strokeColor = isDark ? "rgba(99,102,241," : "rgba(79,70,229,";
+
+  const themeObserver = new MutationObserver(() => {
+    isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    fillColor = isDark ? "rgba(99,102,241,0.25)" : "rgba(79,70,229,0.15)";
+    strokeColor = isDark ? "rgba(99,102,241," : "rgba(79,70,229,";
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -33,8 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
       if (mouse.x !== null) {
         const dx = this.x - mouse.x, dy = this.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
+        const distSq = dx * dx + dy * dy;
+        const radiusSq = mouse.radius * mouse.radius;
+        if (distSq < radiusSq) {
+          const dist = Math.sqrt(distSq);
           const f = (mouse.radius - dist) / mouse.radius;
           this.x += (dx / dist) * f * 0.8;
           this.y += (dy / dist) * f * 0.8;
@@ -42,8 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     draw() {
-      const dark = document.documentElement.getAttribute("data-theme") === "dark";
-      ctx.fillStyle = dark ? "rgba(99,102,241,0.25)" : "rgba(79,70,229,0.15)";
+      ctx.fillStyle = fillColor;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.fill();
@@ -53,22 +67,23 @@ document.addEventListener("DOMContentLoaded", () => {
   function init() {
     particles = [];
     let count;
-    if (isLowEnd) count = window.innerWidth < 768 ? 15 : 30;
-    else count = window.innerWidth < 768 ? 30 : 60;
+    if (isLowEnd) count = window.innerWidth < 768 ? 12 : 25;
+    else count = window.innerWidth < 768 ? 25 : 50;
     for (let i = 0; i < count; i++) particles.push(new Particle());
   }
 
   function connect() {
-    const dark = document.documentElement.getAttribute("data-theme") === "dark";
     const max = 120;
+    const maxSq = max * max;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < max) {
+        const dSq = dx * dx + dy * dy;
+        if (dSq < maxSq) {
+          const d = Math.sqrt(dSq);
           const a = (1 - d / max) * 0.08;
-          ctx.strokeStyle = dark ? `rgba(99,102,241,${a})` : `rgba(79,70,229,${a})`;
+          ctx.strokeStyle = `${strokeColor}${a})`;
           ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
@@ -97,24 +112,38 @@ document.addEventListener("DOMContentLoaded", () => {
       if(isVisible) loop(); 
     }, 200); 
   });
-  window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  // RAF-throttled mouse tracking
+  let mouseTicking = false;
+  window.addEventListener("mousemove", e => {
+    if (mouseTicking) return;
+    mouseTicking = true;
+    requestAnimationFrame(() => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouseTicking = false;
+    });
+  }, { passive: true });
   window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
 
-  // Intersection Observer for performance
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!isVisible) {
-          isVisible = true;
-          loop();
+  // Intersection Observer for performance — pause when hero not visible
+  const heroEl = document.getElementById('hero');
+  if (heroEl) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            loop();
+          }
+        } else {
+          isVisible = false;
+          cancelAnimationFrame(raf);
         }
-      } else {
-        isVisible = false;
-        cancelAnimationFrame(raf);
-      }
-    });
-  }, { threshold: 0 });
-  observer.observe(document.getElementById('hero'));
+      });
+    }, { threshold: 0 });
+    observer.observe(heroEl);
+  }
 
   resize();
 });

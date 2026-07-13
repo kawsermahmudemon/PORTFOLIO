@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════
    PREMIUM BLEND-MODE CURSOR WITH MORPHING
+   Optimized: single RAF loop, passive events
    ══════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
   if (window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window) return;
@@ -19,25 +20,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!dot || !ring) return;
 
   let mx = 0, my = 0, rx = 0, ry = 0;
+  let isVisible = false;
 
   window.addEventListener("mousemove", e => {
     mx = e.clientX; my = e.clientY;
-    dot.style.left = `${mx}px`;
-    dot.style.top = `${my}px`;
-    dot.style.opacity = "1";
-    ring.style.opacity = "1";
-  });
+    if (!isVisible) {
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
+      isVisible = true;
+    }
+  }, { passive: true });
 
   window.addEventListener("mouseleave", () => {
     dot.style.opacity = "0";
     ring.style.opacity = "0";
+    isVisible = false;
   });
 
+  // Single animation loop for ring following
   (function animateRing() {
     rx += (mx - rx) * 0.12;
     ry += (my - ry) * 0.12;
+
+    // Batch DOM writes: update dot + ring transforms together
+    dot.style.left = `${mx}px`;
+    dot.style.top = `${my}px`;
     ring.style.left = `${rx}px`;
     ring.style.top = `${ry}px`;
+
     requestAnimationFrame(animateRing);
   })();
 

@@ -7,7 +7,13 @@
   "scripts": {
     "dev": "npx -y live-server --port=3000 --no-browser --quiet",
     "start": "npx -y live-server --port=3000",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "build": "echo 'No build step'"
   },
-  "keywords": ["portfolio", "developer", "full-stack", "web"]
+  "keywords": [
+    "portfolio",
+    "developer",
+    "full-stack",
+    "web"
+  ]
 }

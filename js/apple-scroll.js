@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════
    APPLE-STYLE SCROLL (GSAP + ScrollTrigger)
+   Optimized for Lenis integration
    ══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   // Only apply on desktop
@@ -9,20 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
   // --- 1. HERO CINEMATIC ZOOM ---
-  // When scrolling down, the hero title scales up massively and fades out.
   const heroContent = document.querySelector('.hero-content');
   if (heroContent) {
     gsap.to(heroContent, {
-      scale: 4,
+      scale: 3,
       opacity: 0,
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: ".hero",
         start: "top top",
         end: "bottom top",
-        scrub: 1, // Smooth scrubbing
+        scrub: 1.5,
         pin: true,
-        pinSpacing: false // Allows the next section to scroll up *under/over* the hero
+        pinSpacing: false,
+        anticipatePin: 1 // Prevents jank when pin starts
       }
     });
   }
@@ -32,16 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectsWrapper = document.querySelector('.projects-wrapper');
   
   if (projectsGrid && projectsWrapper) {
-    // Add class to change CSS to flex horizontal layout
     projectsGrid.classList.add('gsap-horizontal');
 
-    // Remove old fade-up animations from cards to prevent conflict
     const cards = projectsGrid.querySelectorAll('.project-card');
     cards.forEach(card => card.removeAttribute('data-animate'));
 
     let getScrollAmount = () => {
       let gridWidth = projectsGrid.scrollWidth;
-      return -(gridWidth - window.innerWidth + 100); // 100px padding margin
+      return -(gridWidth - window.innerWidth + 100);
     };
 
     const tween = gsap.to(projectsGrid, {
@@ -53,8 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         end: () => `+=${getScrollAmount() * -1}`,
         pin: true,
         animation: tween,
-        scrub: 1,
-        invalidateOnRefresh: true
+        scrub: 1.5,
+        invalidateOnRefresh: true,
+        anticipatePin: 1
       }
     });
 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         setTimeout(() => {
           ScrollTrigger.refresh();
-        }, 500); // Wait for CSS transition to finish hiding/showing cards
+        }, 500);
       });
     });
   }
@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 3. ABOUT IMAGE PARALLAX ---
   const aboutImage = document.querySelector('.about-image img');
   if (aboutImage) {
-    // Make the image taller in CSS temporarily using GSAP for parallax
     gsap.set(aboutImage, { height: '130%', objectPosition: '50% 0%' });
     
     gsap.to(aboutImage, {
@@ -88,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Re-calculate on load just to be safe
+// Re-calculate on load
 window.addEventListener('load', () => {
   if (typeof ScrollTrigger !== 'undefined') {
     ScrollTrigger.refresh();

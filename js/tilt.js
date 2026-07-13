@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════
-   3D TILT EFFECT — Premium card interactions
+   3D TILT EFFECT — RAF-throttled v2
    ══════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
   if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -14,23 +14,32 @@ document.addEventListener("DOMContentLoaded", () => {
     card.style.transformStyle = "preserve-3d";
     card.appendChild(glare);
 
+    let tiltTicking = false;
+
     card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
+      if (tiltTicking) return;
+      tiltTicking = true;
 
-      const rotateX = ((y - cy) / cy) * -TILT_MAX;
-      const rotateY = ((x - cx) / cx) * TILT_MAX;
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
 
-      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${SCALE},${SCALE},${SCALE})`;
+        const rotateX = ((y - cy) / cy) * -TILT_MAX;
+        const rotateY = ((x - cx) / cx) * TILT_MAX;
 
-      // Glare follows cursor
-      const gx = (x / rect.width) * 100;
-      const gy = (y / rect.height) * 100;
-      glare.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,${GLARE_OPACITY}), transparent 60%)`;
-      glare.style.opacity = "1";
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${SCALE},${SCALE},${SCALE})`;
+
+        // Glare follows cursor
+        const gx = (x / rect.width) * 100;
+        const gy = (y / rect.height) * 100;
+        glare.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,${GLARE_OPACITY}), transparent 60%)`;
+        glare.style.opacity = "1";
+
+        tiltTicking = false;
+      });
     });
 
     card.addEventListener("mouseleave", () => {

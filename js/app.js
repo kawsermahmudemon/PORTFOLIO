@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════
    APP — Navigation, Filters, Form, Magnetic
+   Performance-optimized v2
    ══════════════════════════════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.getElementById("navbar");
@@ -8,11 +9,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.getElementById("back-to-top");
   const contactForm = document.getElementById("contact-form");
 
-  // ── Navbar scroll ──
+  // ── Batched scroll handler (single listener for all scroll-dependent UI) ──
+  const sections = document.querySelectorAll("section[id]");
+  let scrollTicking = false;
+
   window.addEventListener("scroll", () => {
-    if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 40);
-    if (backToTop) backToTop.classList.toggle("visible", window.scrollY > 500);
-  });
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+
+        // Navbar scroll effect
+        if (navbar) navbar.classList.toggle("scrolled", scrollY > 40);
+
+        // Back to top visibility
+        if (backToTop) backToTop.classList.toggle("visible", scrollY > 500);
+
+        // Active section highlight
+        const scrollPos = scrollY + 120;
+        sections.forEach(section => {
+          const top = section.offsetTop;
+          const h = section.offsetHeight;
+          const id = section.getAttribute("id");
+          const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+          if (link) link.classList.toggle("active", scrollPos >= top && scrollPos < top + h);
+        });
+
+        scrollTicking = false;
+      });
+    }
+  }, { passive: true });
 
   // ── Hamburger ──
   if (hamburger && navLinks) {
@@ -30,17 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-  // ── Active section highlight ──
-  const sections = document.querySelectorAll("section[id]");
-  window.addEventListener("scroll", () => {
-    const scrollPos = window.scrollY + 120;
-    sections.forEach(section => {
-      const top = section.offsetTop, h = section.offsetHeight, id = section.getAttribute("id");
-      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-      if (link) link.classList.toggle("active", scrollPos >= top && scrollPos < top + h);
-    });
-  });
 
   // ── Back to top ──
   if (backToTop) {
@@ -146,17 +161,23 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => toast.classList.remove("show"), 4000);
   }
 
-  // ── Magnetic button hover effect ──
+  // ── Magnetic button hover effect (RAF-throttled) ──
   window.setupMagnetic = function() {
     document.querySelectorAll("[data-magnetic]").forEach(el => {
       if (el.dataset.magneticInit) return; // Prevent duplicate listeners
       el.dataset.magneticInit = "true";
 
+      let magTicking = false;
       el.addEventListener("mousemove", e => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        if (magTicking) return;
+        magTicking = true;
+        requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+          magTicking = false;
+        });
       });
       el.addEventListener("mouseleave", () => {
         el.style.transform = "";
