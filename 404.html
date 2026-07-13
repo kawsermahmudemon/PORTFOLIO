@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | Emon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap');
+    
+    :root {
+      --bg-main: #05050a;
+      --text-light: #f5f5f7;
+      --color-accent: #7b2cbf;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-main);
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .error-code {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #7b2cbf 0%, #00ffcc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .error-msg {
+      font-size: 1.5rem;
+      margin: 20px 0 40px;
+      opacity: 0.8;
+    }
+    
+    .home-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--text-light);
+      color: var(--bg-main);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    
+    .home-btn:hover {
+      background: var(--color-accent);
+      color: var(--text-light);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(123, 44, 191, 0.4);
+    }
+    
+    .glitch-wrapper {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch-wrapper">
+    <h1 class="error-code">404</h1>
+  </div>
+  <p class="error-msg">The page you are looking for has vanished into the void.</p>
+  <a href="/" class="home-btn">Return to Base</a>
+</body>
+</html>

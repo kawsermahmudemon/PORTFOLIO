@@ -1,0 +1,65 @@
+#showreel-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 10, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#showreel-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.showreel-container {
+  width: 90%;
+  max-width: 1200px;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(123, 44, 191, 0.3);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#showreel-modal.active .showreel-container {
+  transform: scale(1);
+}
+
+.showreel-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 2.5rem;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.showreel-close:hover {
+  background: rgba(123, 44, 191, 0.8);
+  transform: rotate(90deg);
+}
+
+.showreel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

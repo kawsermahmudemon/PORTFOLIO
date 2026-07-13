@@ -1,0 +1,16 @@
+{
+  "name": "Emon Sarker Portfolio",
+  "short_name": "Emon",
+  "description": "Full Stack Developer & Creative Technologist Portfolio",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#7b2cbf",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

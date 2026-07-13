@@ -1,0 +1,58 @@
+
+/* ══════════ GOD MODE (CSS 3D ISOMETRIC DOM) ══════════ */
+body.god-mode {
+  overflow: hidden !important; /* Prevent scrolling during god mode */
+  background: #000 !important;
+  perspective: 2000px;
+}
+
+body.god-mode .container,
+body.god-mode section,
+body.god-mode .navbar {
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 1.5s;
+  transform-style: preserve-3d;
+}
+
+/* Transform the main document content (excluding floating UI) */
+body.god-mode main,
+body.god-mode header,
+body.god-mode footer {
+  transform: rotateX(60deg) rotateZ(-45deg) translateZ(-200px);
+  transform-origin: center center;
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Wrap everything inside body in a div if needed, but styling body directly is risky. 
+   Actually, applying it to sections is better. */
+body.god-mode section {
+  background: rgba(20, 20, 30, 0.8) !important;
+  border: 2px solid var(--accent-1);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+  margin-bottom: 200px;
+  transform: rotateX(60deg) rotateZ(-45deg) translateZ(-200px);
+  transform-style: preserve-3d;
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Elevate specific elements within sections to show depth */
+body.god-mode .glass-card,
+body.god-mode .project-card,
+body.god-mode .skill-card {
+  transform: translateZ(100px);
+  box-shadow: -20px 20px 40px rgba(0,0,0,0.5);
+  border: 1px solid var(--accent-2);
+}
+
+body.god-mode h1,
+body.god-mode h2,
+body.god-mode h3 {
+  transform: translateZ(150px);
+  text-shadow: -10px 10px 20px rgba(0,0,0,0.8);
+}
+
+body.god-mode .hero-orbs,
+body.god-mode #particle-canvas,
+body.god-mode #ascii-globe-container {
+  display: none !important; /* Hide heavy canvases in god mode */
+}

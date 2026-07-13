@@ -1,0 +1,205 @@
+/* ══════════════════════════════════════════
+   CINEMATIC ANIMATION SYSTEM v2
+   ══════════════════════════════════════════ */
+
+/* ── Scroll Reveal Base ── */
+[data-animate] {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-animate="fade-up"] { transform: translateY(40px); }
+[data-animate="fade-down"] { transform: translateY(-40px); }
+[data-animate="fade-left"] { transform: translateX(40px); }
+[data-animate="fade-right"] { transform: translateX(-40px); }
+[data-animate="scale-in"] { transform: scale(0.92); }
+[data-animate="split-chars"] { transform: none; }
+
+[data-animate].revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* ── Stagger Grid Items ── */
+[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-stagger] > *.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Preloader Entrance ── */
+@keyframes preloader-count {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.preloader-inner {
+  animation: preloader-count 0.6s ease forwards;
+}
+
+/* ── Magnetic Hover ── */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ══════════ NEW: FLOATING ANIMATION ══════════ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+}
+
+.float { animation: float 6s ease-in-out infinite; }
+.float-slow { animation: float-slow 8s ease-in-out infinite; }
+.float-reverse { animation: float-reverse 7s ease-in-out infinite; }
+
+/* ══════════ NEW: GRADIENT ORB ANIMATION ══════════ */
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(60px, -40px) scale(1.1); }
+  50% { transform: translate(-30px, 60px) scale(0.95); }
+  75% { transform: translate(40px, 30px) scale(1.05); }
+}
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-50px, 30px) scale(1.08); }
+  50% { transform: translate(40px, -50px) scale(0.92); }
+  75% { transform: translate(-20px, -30px) scale(1.03); }
+}
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, 50px) scale(1.12); }
+  66% { transform: translate(-40px, -20px) scale(0.9); }
+}
+
+/* ══════════ NEW: SHIMMER / SHINE EFFECT ══════════ */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    rgba(255,255,255,0.04) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ══════════ NEW: PULSE GLOW ══════════ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--glow), 0 0 40px transparent; }
+  50% { box-shadow: 0 0 30px var(--glow-strong), 0 0 60px var(--glow); }
+}
+.pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+/* ══════════ NEW: TEXT SPLIT CHARS ══════════ */
+.split-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px) rotateX(-40deg);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.split-char.revealed {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+/* ══════════ NEW: 3D TILT GLARE ══════════ */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+}
+
+/* ══════════ NEW: ROTATE CHEVRON ══════════ */
+.faq-chevron {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq-item.open .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ══════════ NEW: SLIDE IN FROM SIDES ══════════ */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ══════════ NEW: COUNTER SPIN ══════════ */
+@keyframes counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ══════════ NEW: GRADIENT BORDER ANIMATION ══════════ */
+@keyframes gradient-rotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* ══════════ NEW: TESTIMONIAL SLIDE ══════════ */
+.testimonial-slide {
+  opacity: 0;
+  transform: translateX(30px) scale(0.96);
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.testimonial-slide.active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  position: relative;
+  pointer-events: auto;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  [data-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .float, .float-slow, .float-reverse,
+  .shimmer, .pulse-glow, .split-char {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .testimonial-slide {
+    transition: none !important;
+  }
+}

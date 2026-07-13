@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Emon</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@600;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- LOGIN VIEW -->
+    <div id="login-view" class="glass-card login-card active">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <h2><span class="gradient-text">Restricted Area</span></h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Emon's Portfolio Administration</p>
+      </div>
+      
+      <div class="form-group">
+        <input type="password" id="admin-pass" class="form-input" placeholder=" " autocomplete="off">
+        <label for="admin-pass" class="form-label">Passcode</label>
+      </div>
+      <button id="btn-login" class="btn-primary" style="width: 100%; justify-content: center;">Authenticate</button>
+      <p id="login-error" style="color: #ef4444; font-size: 0.8rem; margin-top: 12px; display: none;">Access Denied. Incorrect Passcode.</p>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboard-view" class="dashboard-wrapper">
+      <header class="admin-header">
+        <h2>Welcome back, <span class="gradient-text">Emon</span></h2>
+        <a href="index.html" class="btn-ghost" style="padding: 8px 16px; font-size: 0.8rem;">&larr; Back to Site</a>
+      </header>
+
+      <div class="dashboard-grid">
+        <!-- UPLOAD SECTION -->
+        <div class="glass-card upload-section">
+          <h3>Upload Media</h3>
+          <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 20px;">Upload images to your Moments gallery.</p>
+          
+          <div class="drop-zone" id="drop-zone">
+            <span style="font-size: 2rem; margin-bottom: 10px; display: block;">📂</span>
+            <p>Drag & Drop files here</p>
+            <p style="font-size: 0.8rem; color: var(--text-tertiary);">or click to browse</p>
+            <input type="file" id="file-input" accept="image/*,video/*" multiple hidden>
+          </div>
+          
+          <div id="upload-preview" class="upload-preview"></div>
+          
+          <div class="form-group" style="margin-top: 20px;">
+            <input type="text" id="media-caption" class="form-input" placeholder=" ">
+            <label for="media-caption" class="form-label">Caption (Optional)</label>
+          </div>
+          
+          <button id="btn-upload" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;" disabled>Upload to Firebase</button>
+          
+          <div id="upload-progress" class="upload-progress" style="display: none;">
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+            <p id="progress-text" style="font-size: 0.8rem; margin-top: 5px; text-align: center;">Uploading: 0%</p>
+          </div>
+        </div>
+
+        <!-- GALLERY MANAGER -->
+        <div class="glass-card gallery-manager">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3>Manage Moments</h3>
+            <button id="btn-refresh" class="btn-ghost" style="padding: 4px 10px; font-size: 0.75rem;">Refresh</button>
+          </div>
+          
+          <div id="admin-gallery-grid" class="admin-gallery-grid">
+            <!-- Media items will be injected here -->
+            <div class="loading-state">Loading from Firestore...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Services -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  
+  <script src="js/admin.js"></script>
+</body>
+</html>

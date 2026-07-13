@@ -1,0 +1,136 @@
+/*
+ * 1998 Retro Theme (Windows 95 / GeoCities Aesthetic)
+ * Activated via terminal command: `theme 1998`
+ */
+
+[data-theme="1998"] {
+  /* Override variables with harsh, retro colors */
+  --bg-primary: #008080 !important; /* Teal background */
+  --bg-secondary: #c0c0c0 !important;
+  --bg-tertiary: #ffffff !important;
+  
+  --surface: #c0c0c0 !important;
+  --surface-hover: #dfdfdf !important;
+  
+  --border: #000000 !important;
+  --border-hover: #000000 !important;
+  
+  --text-primary: #000000 !important;
+  --text-secondary: #000080 !important;
+  --text-tertiary: #ff0000 !important;
+  
+  --accent-1: #000080 !important; /* Navy */
+  --accent-2: #ff0000 !important;
+  
+  --glass: #c0c0c0 !important;
+  --glass-border: #ffffff !important;
+  
+  --shadow: 2px 2px 0px #000000 !important;
+  --shadow-sm: 1px 1px 0px #000000 !important;
+  --shadow-glow: none !important;
+  
+  --radius: 0px !important;
+  --radius-sm: 0px !important;
+  --radius-xs: 0px !important;
+  --radius-full: 0px !important;
+  
+  --font-body: 'Courier New', Courier, monospace !important;
+  --font-heading: 'Times New Roman', Times, serif !important;
+  
+  --gradient: none !important;
+  --gradient-hover: none !important;
+  --gradient-text: none !important;
+}
+
+[data-theme="1998"] body {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2P//vwMTAwMQMAJhEAEQAAmWBA6d44l+AAAAAElFTkSuQmCC') !important;
+  /* Simple star pattern fallback */
+}
+
+/* Strip out modern effects */
+[data-theme="1998"] * {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+  text-shadow: none !important;
+  border-radius: 0 !important;
+  animation: none !important;
+}
+
+[data-theme="1998"] .glass-card {
+  background: #c0c0c0 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  color: #000 !important;
+}
+
+[data-theme="1998"] .glass-card::before,
+[data-theme="1998"] .glass-card::after {
+  display: none !important;
+}
+
+[data-theme="1998"] .gradient-text {
+  background: none !important;
+  -webkit-text-fill-color: #000080 !important;
+  text-decoration: underline !important;
+  text-decoration-color: #ff0000 !important;
+}
+
+[data-theme="1998"] .btn-primary, 
+[data-theme="1998"] .btn-ghost {
+  background: #c0c0c0 !important;
+  color: #000 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  font-family: 'MS Sans Serif', 'Arial', sans-serif !important;
+  text-transform: uppercase;
+}
+
+[data-theme="1998"] .btn-primary:active,
+[data-theme="1998"] .btn-ghost:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-bottom: 2px solid #ffffff !important;
+  border-right: 2px solid #ffffff !important;
+  transform: translate(2px, 2px) !important;
+}
+
+[data-theme="1998"] .navbar {
+  background: #c0c0c0 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+[data-theme="1998"] .nav-links a {
+  color: #0000ee !important;
+  text-decoration: underline !important;
+}
+[data-theme="1998"] .nav-links a:visited {
+  color: #551a8b !important;
+}
+
+[data-theme="1998"] .hero-orbs,
+[data-theme="1998"] canvas {
+  display: none !important;
+}
+
+[data-theme="1998"] .presence-widget {
+  background: #c0c0c0 !important;
+  border: 2px solid #000 !important;
+  color: #000 !important;
+}
+
+/* Comic Sans specific override for titles */
+[data-theme="1998"] h1, 
+[data-theme="1998"] h2 {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
+  color: #ffff00 !important;
+  background: #000080 !important;
+  display: inline-block;
+  padding: 5px;
+  border: 2px dotted #ff0000;
+}

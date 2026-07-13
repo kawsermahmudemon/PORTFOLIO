@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emon | Full Stack Developer & Creative Technologist</title>
+  <meta name="description" content="Portfolio of Emon — Full Stack Developer and Creative Technologist crafting next-generation digital experiences with clean code and cinematic design.">
+  <meta name="keywords" content="Emon, portfolio, full stack developer, web developer, creative technologist, UI/UX designer">
+  <meta name="author" content="Emon">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Emon | Full Stack Developer & Creative Technologist">
+  <meta property="og:description" content="Award-winning portfolio showcasing creative development work.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Emon | Portfolio">
+  <meta name="twitter:description" content="Next-gen portfolio showcasing creative development work.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <!-- Preconnect Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/retro-1998.css">
+  <link rel="stylesheet" href="css/god-mode.css">
+  <link rel="stylesheet" href="css/context-menu.css">
+  <link rel="stylesheet" href="css/showreel.css">
+  <link rel="stylesheet" href="css/blog-modal.css">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7b2cbf">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Emon",
+    "jobTitle": "Full Stack Developer",
+    "description": "Creative Technologist building next-gen digital experiences",
+    "url": "",
+    "sameAs": []
+  }
+  </script>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <div class="preloader-counter">
+      <span class="preloader-number" id="preloader-number">0</span>
+      <span class="preloader-percent">%</span>
+    </div>
+    <div class="preloader-bar-track">
+      <div class="preloader-bar-fill" id="preloader-bar"></div>
+    </div>
+    <div class="preloader-label">Loading Experience</div>
+  </div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" aria-label="Home">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Emon</span>
+    </a>
+    <ul class="nav-links" id="nav-links" role="menubar">
+      <li role="none"><a href="#about" role="menuitem">About</a></li>
+      <li role="none"><a href="#skills" role="menuitem">Skills</a></li>
+      <li role="none"><a href="#projects" role="menuitem">Projects</a></li>
+      <li role="none"><a href="#experience" role="menuitem">Experience</a></li>
+      <li role="none"><a href="#blog" role="menuitem">Blog</a></li>
+      <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <!-- Voice AI Mic -->
+      <button class="voice-ai-toggle" id="voice-ai-toggle" aria-label="Enable Voice AI" title="Voice Commands">
+        🎤
+      </button>
+      
+      <!-- Theme Color Switcher -->
+      <div class="theme-swatches" aria-label="Color themes">
+        <div class="theme-swatch swatch-default active" data-palette="default" title="Cyberpunk Purple"></div>
+        <div class="theme-swatch swatch-blue" data-palette="blue" title="Neon Blue"></div>
+        <div class="theme-swatch swatch-green" data-palette="green" title="Hacker Green"></div>
+        <div class="theme-swatch swatch-orange" data-palette="orange" title="Sunset Orange"></div>
+      </div>
+      
+      <!-- Micro-sounds Toggle -->
+      <button class="sound-toggle" id="sound-toggle" aria-label="Enable Sounds" title="Toggle UI Sounds">
+        🔇
+      </button>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle Light/Dark">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- WEBGL FLUID CANVAS -->
+<canvas id="fluid-canvas" aria-hidden="true" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" id="hero">
+  <!-- Gradient Orbs -->
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-badge" data-animate="fade-up">
+      <span class="badge-dot"></span>
+      <span id="greeting">Good Evening</span> — Available for work
+    </div>
+    <h1 class="hero-title" data-animate="split-chars">
+      I'm <span class="gradient-text">Emon Sarker</span>
+    </h1>
+    <p class="hero-subtitle" data-animate="fade-up" data-delay="0.3">
+      <span id="typed-text"></span><span class="typed-cursor">|</span>
+    </p>
+    <p class="hero-description" data-animate="fade-up" data-delay="0.5">
+      Incoming CS Freshman at <strong>Kent State University (Fall '26)</strong>. An award-winning youth technologist, researcher, and social entrepreneur engineering low-cost solutions for climate resilience, rural health, and education.
+    </p>
+    <div class="hero-cta" data-animate="fade-up" data-delay="0.7">
+      <a href="#projects" class="btn-primary magnetic" data-magnetic>
+        <span>View My Work</span>
+        <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+      <button id="btn-showreel" class="btn-ghost magnetic" data-magnetic>
+        <span>🎥 Watch Reel</span>
+      </button>
+      <a href="#contact" class="btn-ghost magnetic" data-magnetic>
+        <span>Let's Talk</span>
+      </a>
+      <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" class="btn-ghost magnetic" data-magnetic aria-label="LinkedIn Profile">
+        <span>LinkedIn</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating Badges (Desktop Only) -->
+  <div class="hero-floating" aria-hidden="true">
+    <div class="hero-float-badge float" data-animate="fade-left" data-delay="0.9">
+      <span class="badge-icon">🌍</span>
+      <span>Global Finalist (Japan 3ZERO)</span>
+    </div>
+    <div class="hero-float-badge float-slow" data-animate="fade-left" data-delay="1.1">
+      <span class="badge-icon">💡</span>
+      <span>150K+ Network Reach</span>
+    </div>
+    <div class="hero-float-badge float-reverse" data-animate="fade-left" data-delay="1.3">
+      <span class="badge-icon">🔥</span>
+      <span>Open to Opportunities</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator" data-animate="fade-up" data-delay="1">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">01 — About</span>
+      <h2 class="section-title">Turning vision into <span class="gradient-text">digital reality</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual" data-animate="fade-right">
+        <div class="about-image-frame">
+          <img src="C:/Users/mdemo/.gemini/antigravity-ide/brain/ef423e73-6640-4491-967c-40984a568557/emon_profile_1783937589013.png" alt="Md Emon Sarker" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);">
+          <div class="about-image-border"></div>
+        </div>
+        <div class="about-floating-card glass-card" data-animate="scale-in" data-delay="0.4">
+          <span class="floating-card-icon">🎯</span>
+          <span class="floating-card-text">Ranked <strong>1st in Class</strong></span>
+        </div>
+      </div>
+      <div class="about-content" data-animate="fade-left">
+        <!-- About Tabs -->
+        <div class="about-tabs">
+          <button class="about-tab-btn active" data-panel="about-story">Story</button>
+          <button class="about-tab-btn" data-panel="about-philosophy">Philosophy</button>
+          <button class="about-tab-btn" data-panel="about-funfacts">Fun Facts</button>
+        </div>
+
+        <div id="about-story" class="about-tab-panel active">
+          <p class="about-lead">My earliest memory is not of a toy or a game, but of a river. The catastrophic flood of 2014 was a pivotal moment. As the murky water devoured our home, I lost a fundamental belief in a secure world.</p>
+          <p class="about-body">In the wake of the disaster, the insecurities born from my rural background surfaced through cruel remarks. The pain was real, but my mother pushed me forward: <em>"You will not wait for a chance,"</em> she told me with an unyielding gaze. <em>"You will create it."</em> That command became my new purpose. I took on a challenge that seemed impossible: solving the lack of electricity and internet that disconnected us from the world. I proposed installing solar panels and worked with an ISP to extend their network, bringing modern education to thousands. My journey has been defined by resilience—overcoming not just floods and prejudice, but even facing multiple US Visa rejections before securing an expedited F-1 approval to pursue Computer Science at Kent State University in Fall 2026. An admissions officer might see my GPA or awards, but this is my true identity: a boy who used his passion for technology to uplift his entire community.</p>
+        </div>
+
+        <div id="about-philosophy" class="about-tab-panel">
+          <p class="about-lead">I believe technology is most powerful when it acts as a bridge for <strong>social equity and resilience</strong>.</p>
+          <p class="about-body">Whether I am building a maternal health tech prototype for rural women, designing an autonomous food-serving robot, or founding a weekend literacy camp for street children, my philosophy is simple: engineering must serve humanity. Every line of code, every circuit, and every community initiative is an opportunity to empower those who need it most.</p>
+        </div>
+
+        <div id="about-funfacts" class="about-tab-panel">
+          <div class="fun-facts-grid">
+            <div class="fun-fact"><span class="fun-fact-icon">🌍</span> Global Finalist at the 5th 3ZERO Leadership Challenge (Japan)</div>
+            <div class="fun-fact"><span class="fun-fact-icon">🎤</span> Selected as a youth speaker at ICCCAD & Gobeshona Conference</div>
+            <div class="fun-fact"><span class="fun-fact-icon">🩸</span> Founded the Shohagpur Blood Donation Club (App & Web)</div>
+            <div class="fun-fact"><span class="fun-fact-icon">📚</span> Taught 45 underprivileged street children every Saturday for 3 years</div>
+            <div class="fun-fact"><span class="fun-fact-icon">🛍️</span> Built an e-commerce ecosystem connecting 200+ rural Taant weavers</div>
+            <div class="fun-fact"><span class="fun-fact-icon">🗣️</span> Champion & Best Speaker in Inter-School Debate (among 147 teams)</div>
+          </div>
+        </div>
+
+        <div class="about-stats" style="margin-top: 32px;">
+          <div class="stat-card glass-card">
+            <div class="stat-number" data-count="150">0</div>
+            <div class="stat-label">Thousand+<br>Network Reach</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-number" data-count="75">0</div>
+            <div class="stat-label">Girls Trained<br>in STEM</div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-number" data-count="1">0</div>
+            <div class="stat-label">Class Rank<br>Academic Excellence</div>
+          </div>
+        </div>
+        <a href="#" onclick="alert('Resume download triggered! Preparing PDF...'); return false;" class="btn-primary magnetic" data-magnetic style="margin-top:32px;">
+          <span>Download CV</span>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS SECTION ===== -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">02 — Skills</span>
+      <h2 class="section-title">Technologies I <span class="gradient-text">work with</span></h2>
+    </div>
+
+    <!-- Physics-based Knowledge Web -->
+    <div id="skills-canvas-container" class="glass-card" style="margin-bottom: 40px; padding: 0;" data-animate="scale-in"></div>
+
+    <!-- Marquee Strip -->
+    <div class="marquee-container" data-animate="fade-up">
+      <div class="marquee-track">
+        <div class="marquee-content">
+          <span class="marquee-item">HTML5</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">CSS3</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">JavaScript</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">React</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Next.js</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Node.js</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Python</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Java</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Spring Boot</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">PostgreSQL</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">MongoDB</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Docker</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Figma</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Git</span><span class="marquee-divider">✦</span>
+        </div>
+        <div class="marquee-content" aria-hidden="true">
+          <span class="marquee-item">HTML5</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">CSS3</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">JavaScript</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">React</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Next.js</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Node.js</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Python</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Java</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Spring Boot</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">PostgreSQL</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">MongoDB</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Docker</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Figma</span><span class="marquee-divider">✦</span>
+          <span class="marquee-item">Git</span><span class="marquee-divider">✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Filter Tabs -->
+    <div class="skills-tabs" data-animate="fade-up">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="frontend">Frontend</button>
+      <button class="tab-btn" data-filter="backend">Backend</button>
+      <button class="tab-btn" data-filter="tools">Tools</button>
+    </div>
+    <div class="skills-grid" data-stagger>
+      <div class="skill-card glass-card" data-category="frontend" data-tilt><div class="skill-icon">🌐</div><h4>HTML/CSS</h4><div class="skill-level"><div class="skill-fill" style="--fill:95%"></div></div></div>
+      <div class="skill-card glass-card" data-category="backend" data-tilt><div class="skill-icon">🐍</div><h4>Python</h4><div class="skill-level"><div class="skill-fill" style="--fill:90%"></div></div></div>
+      <div class="skill-card glass-card" data-category="backend" data-tilt><div class="skill-icon">©️</div><h4>C Programming</h4><div class="skill-level"><div class="skill-fill" style="--fill:85%"></div></div></div>
+      <div class="skill-card glass-card" data-category="tools" data-tilt><div class="skill-icon">🤖</div><h4>IoT Circuit Design</h4><div class="skill-level"><div class="skill-fill" style="--fill:90%"></div></div></div>
+      <div class="skill-card glass-card" data-category="tools" data-tilt><div class="skill-icon">🔌</div><h4>Arduino</h4><div class="skill-level"><div class="skill-fill" style="--fill:88%"></div></div></div>
+      <div class="skill-card glass-card" data-category="tools" data-tilt><div class="skill-icon">🍓</div><h4>Raspberry Pi</h4><div class="skill-level"><div class="skill-fill" style="--fill:85%"></div></div></div>
+      <div class="skill-card glass-card" data-category="tools" data-tilt><div class="skill-icon">🎨</div><h4>Figma (UI/UX)</h4><div class="skill-level"><div class="skill-fill" style="--fill:82%"></div></div></div>
+      <div class="skill-card glass-card" data-category="tools" data-tilt><div class="skill-icon">🎬</div><h4>Premiere Pro</h4><div class="skill-level"><div class="skill-fill" style="--fill:75%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS SECTION ===== -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">03 — Projects</span>
+      <h2 class="section-title">Selected <span class="gradient-text">work</span></h2>
+    </div>
+    <div class="projects-filter" data-animate="fade-up">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="web">Web Apps</button>
+      <button class="tab-btn" data-filter="mobile">Mobile</button>
+      <button class="tab-btn" data-filter="ai">AI / ML</button>
+    </div>
+    <div class="projects-wrapper" id="projects-wrapper">
+      <div class="projects-grid" id="dynamic-projects-grid">
+      <!-- Project 1 -->
+      <article class="project-card" data-category="web" data-animate="fade-up" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);">
+          <div class="project-image-content">🩸</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Shohagpur Blood Donation Club</h3>
+          <p>A web and mobile app database connecting rural patients with blood donors in real-time. Credited for saving multiple lives during shortages.</p>
+          <div class="project-tags">
+            <span class="tag">App Development</span>
+            <span class="tag">Social Impact</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 2 -->
+      <article class="project-card" data-category="ai" data-animate="fade-up" data-delay="0.1" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#2d1b4e 0%,#4a1942 50%,#8b2252 100%);">
+          <div class="project-image-content">🌱</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Smart Agriculture IoT Project</h3>
+          <p>An IoT soil moisture monitoring prototype using Arduino and custom sensors. Demonstrated 18% crop yield increase and won 2nd Place at Regional Science Olympiad.</p>
+          <div class="project-tags">
+            <span class="tag">Arduino</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Sensors</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 3 -->
+      <article class="project-card" data-category="mobile" data-animate="fade-up" data-delay="0.2" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2d6a9f 100%);">
+          <div class="project-image-content">🤖</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Autonomous Service Robot</h3>
+          <p>Designed, programmed, and assembled a "Food-Serving Robot" from scratch, demonstrating advanced proficiency in circuit design and motor control logic.</p>
+          <div class="project-tags">
+            <span class="tag">Robotics</span>
+            <span class="tag">Circuit Design</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 4 -->
+      <article class="project-card" data-category="web" data-animate="fade-up" data-delay="0.3" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#1a0a2e 0%,#3d1560 50%,#6b21a8 100%);">
+          <div class="project-image-content">🛍️</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Belkuchi Digital Market</h3>
+          <p>Built an e-commerce ecosystem connecting 200+ rural Taant weavers directly to national buyers, resulting in a ~20% income increase for artisans.</p>
+          <div class="project-tags">
+            <span class="tag">E-Commerce</span>
+            <span class="tag">Web Dev</span>
+            <span class="tag">Logistics</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 5 -->
+      <article class="project-card" data-category="web" data-animate="fade-up" data-delay="0.4" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#0d3b2e 0%,#1a5c40 50%,#2d8a5c 100%);">
+          <div class="project-image-content">🛍️</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View source code">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>EcoJute Tech Bags</h3>
+          <p>Founder & CEO of an eco-friendly jute bag startup integrating QR tracking systems. Employed 10 women, sold 5,000+ units, and reduced 8,000kg of plastic usage.</p>
+          <div class="project-tags">
+            <span class="tag">Startup</span>
+            <span class="tag">Tech Integration</span>
+            <span class="tag">Sustainability</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 6 -->
+      <article class="project-card" data-category="mobile" data-animate="fade-up" data-delay="0.5" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#3e1a2e 0%,#6a2c50 50%,#9e3a7a 100%);">
+          <div class="project-image-content">🏥</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Rural Health & Tech App</h3>
+          <p>Project Lead for a campaign organizing 12 village health-tech camps. Prototyped a maternal health app serving 3,500+ villagers and advancing healthcare for 200+ women.</p>
+          <div class="project-tags">
+            <span class="tag">Mobile App</span>
+            <span class="tag">HealthTech</span>
+            <span class="tag">Prototyping</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 7 -->
+      <article class="project-card" data-category="web" data-animate="fade-up" data-delay="0.6" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#1a2e3b 0%,#2c506a 50%,#3a7a9e 100%);">
+          <div class="project-image-content">📚</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Weekend Literacy Camp</h3>
+          <p>Founder. Taught English and computer skills to 45 underprivileged street children every Saturday for 3 years, eventually training 7 junior volunteers to continue the legacy.</p>
+          <div class="project-tags">
+            <span class="tag">Education</span>
+            <span class="tag">Community</span>
+            <span class="tag">Leadership</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 8 -->
+      <article class="project-card" data-category="ai" data-animate="fade-up" data-delay="0.7" data-tilt data-cursor-text="VIEW">
+        <div class="project-image" style="background:linear-gradient(135deg,#2b3e1a 0%,#4a6a2c 50%,#719e3a 100%);">
+          <div class="project-image-content">🌳</div>
+          <div class="project-overlay">
+            <a href="#" class="project-link magnetic" data-magnetic aria-label="View live demo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3>Project Green Bangladesh</h3>
+          <p>Founder & President. Established the club across 17 schools, led 1,700+ tree plantings, and engaged 2,500+ students to combat soil erosion and environmental impact.</p>
+          <div class="project-tags">
+            <span class="tag">Environmental</span>
+            <span class="tag">Organization</span>
+            <span class="tag">Activism</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    </div> <!-- /projects-wrapper -->
+  </div>
+</section>
+
+<!-- ===== PROJECT DETAIL MODAL ===== -->
+<div id="project-modal" aria-hidden="true">
+  <div class="project-modal-inner">
+    <button class="project-modal-close" aria-label="Close modal">&times;</button>
+    <div class="project-modal-image"></div>
+    <div class="project-modal-body">
+      <h3 class="project-modal-title"></h3>
+      <p class="project-modal-desc"></p>
+      <div class="project-modal-tags"></div>
+      <div class="project-modal-links"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACHIEVEMENTS SECTION ===== -->
+<section id="achievements" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">04 — Achievements</span>
+      <h2 class="section-title">Milestones & <span class="gradient-text">Certifications</span></h2>
+    </div>
+    <div class="achievements-grid" data-stagger>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🏆</div>
+        <h4>Global Finalist</h4>
+        <p>5th 3ZERO Leadership Challenge (Japan) – SDG #3 Health Innovation (Selected from 465 global participants).</p>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🎤</div>
+        <h4>International Speaker</h4>
+        <p>ICCCAD & Gobeshona Global Conference. Spoke on "Tech for Tomorrow: Leveraging AI in Locally-Led Climate Adaptation."</p>
+        <span class="achievement-year">2025</span>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🥇</div>
+        <h4>Champion & Best Speaker</h4>
+        <p>Inter-School Debate Championship (Led team to victory among 147 teams).</p>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">⭐</div>
+        <h4>Top 100 Young Leaders</h4>
+        <p>Recognized by Belkuchi Municipality for COVID-19 relief initiatives.</p>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🤝</div>
+        <h4>Changemakers Unite</h4>
+        <p>Selected participant for Changemakers Unite Workshop by U.S. Embassy Dhaka & EMK Center.</p>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🏅</div>
+        <h4>Principal’s Award</h4>
+        <p>Awarded for Academic Excellence, graduating 1st out of 450 students at Belkuchi Model College.</p>
+        <span class="achievement-year">2022</span>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🎓</div>
+        <h4>IELTS Preparatory Training</h4>
+        <p>Completed IELTS Listening & Speaking Module training by Futurenation, UNDP Bangladesh & Grameenphone.</p>
+        <span class="achievement-year">2025</span>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🎓</div>
+        <h4>Regular Decision Workshop</h4>
+        <p>Certificate of Appreciation for participating in the Regular Decision Workshop 2025 organized by Aemers LLC.</p>
+        <span class="achievement-year">2025</span>
+      </div>
+      <div class="achievement-card glass-card" data-tilt>
+        <div class="achievement-icon">🌱</div>
+        <h4>Manifesto Talk Participant</h4>
+        <p>Participated in 'Manifesto Talk: Water, Agriculture and Food Security' by the Department of Environment.</p>
+        <span class="achievement-year">2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE SECTION ===== -->
+<section id="experience" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">05 — Journey</span>
+      <h2 class="section-title">Education & <span class="gradient-text">Experience</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-line" id="timeline-line"></div>
+      <div class="timeline-item" data-animate="fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2023 — Present</span>
+          <h3>Central Volunteer Lead</h3>
+          <span class="timeline-org">UNDP, SERAC, JAAGO BD, Dhaka Wings & More</span>
+          <p>Leading nationwide volunteer networks advocating for climate justice, youth empowerment, and mental health. Actively volunteering with SERAC Bangladesh, UNDP, Dhaka Wings, Volunteer for Bangladesh (JAAGO), OAB Foundation, and Lets Talk Mental Health.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate="fade-up" data-delay="0.1">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2023 — Present</span>
+          <h3>Administrative Associate</h3>
+          <span class="timeline-org">M/S Rafim Textile Mills Ltd</span>
+          <p>Overseeing administrative operations, managing payroll for 50+ employees, and optimizing supply chain documentation.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate="fade-up" data-delay="0.2">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2019 — Present</span>
+          <h3>Founder & President</h3>
+          <span class="timeline-org">Bangladesh National Coding & Robotics League (NCRL)</span>
+          <p>Founded to democratize tech education. Organized 6 regional hackathons for 600+ students and launched "Girls in Code".</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate="fade-up" data-delay="0.3">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2019 — 2022</span>
+          <h3>HSC - Science (GPA 5.00)</h3>
+          <span class="timeline-org">Belkuchi Model College</span>
+          <p>Consistently ranked 1st out of 450 students. Achieved a flawless GPA 5.00 with straight A+ in Class XI. Served as an Unofficial Teaching Assistant, leading peer-tutoring sessions for junior students in Physics and ICT.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate="fade-up" data-delay="0.4">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2020 — 2022</span>
+          <h3>Family Care Coordinator & Ops Manager</h3>
+          <span class="timeline-org">COVID-19 Support & Retail Management</span>
+          <p>Managed household and cared for elderly relatives during COVID-19. Simultaneously managed daily operations of my father's grocery store (supply chain, inventory) and assisted logistics at a relative's textile mill.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate="fade-up" data-delay="0.5">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card glass-card">
+          <span class="timeline-date">2017 — 2019</span>
+          <h3>SSC - Science (GPA 5.00)</h3>
+          <span class="timeline-org">Shohagpur Nutanpara A.S. High School</span>
+          <p>Achieved consecutive perfect GPA 5.00 (Straight A+) in Class 9 (2017) and Class 10 (2018). Engineered a food-serving robot for the science fair and developed the school's first official website.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS SECTION ===== -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">06 — Testimonials</span>
+      <h2 class="section-title">What clients <span class="gradient-text">say</span></h2>
+    </div>
+    <div class="testimonial-carousel" data-animate="fade-up">
+      <div class="testimonial-track" id="testimonial-track">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content glass-card">
+            <div class="testimonial-avatar">🎓</div>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+            <p class="testimonial-quote">"He is the most resilient, impactful, and community-driven young leader I have ever encountered... placing him first in a class of 450... a visionary who also knows how to build."</p>
+            <div class="testimonial-author">Md. Abdul Mannan Sarker</div>
+            <div class="testimonial-role">Principal, Belkuchi Model College</div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content glass-card">
+            <div class="testimonial-avatar">🏫</div>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+            <p class="testimonial-quote">"A once-in-a-generation talent. He demonstrated a blend of intellectual genius, technological ingenuity, and community-driven leadership... he engineered a revolutionary blood donation system."</p>
+            <div class="testimonial-author">Md. Mehedi Masud</div>
+            <div class="testimonial-role">Headmaster, Shohagpur Nutanpara A.S. High School</div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content glass-card">
+            <div class="testimonial-avatar">🔬</div>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+            <p class="testimonial-quote">"A rare student who combines a scientific mind with a deeply compassionate heart... I have watched him turn an initial idea into an initiative that has planted over 1,700 trees."</p>
+            <div class="testimonial-author">Bedyut Kumar Saha</div>
+            <div class="testimonial-role">Senior Lecturer, Biology</div>
+          </div>
+        </div>
+        <!-- Testimonial 4 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content glass-card">
+            <div class="testimonial-avatar">💻</div>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+            <p class="testimonial-quote">"A true technologist—someone who sees technology as a language to solve deeply human problems... I watched him build an e-commerce hub from scratch."</p>
+            <div class="testimonial-author">Md. Azizul Islam</div>
+            <div class="testimonial-role">Senior Lecturer, ICT</div>
+          </div>
+        </div>
+        <!-- Testimonial 5 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content glass-card">
+            <div class="testimonial-avatar">📖</div>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+            <p class="testimonial-quote">"A master communicator, a sharp critical thinker, and a compassionate cultural leader. He wields words with the precision of a scholar and the heart of a poet."</p>
+            <div class="testimonial-author">Md. Shamsul Alam</div>
+            <div class="testimonial-role">Assistant Professor, English</div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots" id="testimonial-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GITHUB STATS SECTION ===== -->
+<section id="github" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">07 — Open Source</span>
+      <h2 class="section-title">GitHub <span class="gradient-text">Activity</span></h2>
+      <p class="section-subtitle">My coding journey visualized — consistency, curiosity, and contribution.</p>
+    </div>
+    <div class="github-stats-layout" data-animate="fade-up">
+      <div class="heatmap-wrapper">
+        <div class="heatmap-grid" id="github-heatmap"></div>
+      </div>
+      <div class="github-sidebar">
+        <div class="donut-wrapper">
+          <canvas id="lang-donut" width="200" height="200"></canvas>
+        </div>
+        <div class="lang-legend" id="lang-legend"></div>
+      </div>
+    </div>
+    <div class="gh-stats-row" data-stagger>
+      <div class="gh-stat-card glass-card">
+        <div class="gh-stat-number" data-count="42">0</div>
+        <div class="gh-stat-label">Repositories</div>
+      </div>
+      <div class="gh-stat-card glass-card">
+        <div class="gh-stat-number" data-count="1250">0</div>
+        <div class="gh-stat-label">Commits</div>
+      </div>
+      <div class="gh-stat-card glass-card">
+        <div class="gh-stat-number" data-count="120">0</div>
+        <div class="gh-stat-label">Stars Earned</div>
+      </div>
+      <div class="gh-stat-card glass-card">
+        <div class="gh-stat-number" data-count="35">0</div>
+        <div class="gh-stat-label">Pull Requests</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG SECTION ===== -->
+<section id="blog" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">08 — Blog</span>
+      <h2 class="section-title">Latest <span class="gradient-text">articles</span></h2>
+      <p class="section-subtitle">Thoughts on development, design, and the tech that excites me.</p>
+    </div>
+    <div class="blog-grid" data-stagger>
+      <article class="blog-card" data-tilt style="cursor:pointer;" data-blog-id="1">
+        <div class="blog-card-image" style="background:linear-gradient(135deg,#0f3460 0%,#1a1a2e 100%);">
+          <span class="blog-emoji">🌊</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-category">Resilience</span>
+            <span>7 min read</span>
+            <span>Jul 2026</span>
+          </div>
+          <h3>From Floodwaters to Future: Engineering Resilience in Rural Bangladesh</h3>
+          <p>How the 2014 catastrophic flood sparked my journey into engineering and solar-powered internet infrastructure.</p>
+          <span class="blog-read-more">Read Article →</span>
+        </div>
+      </article>
+      <article class="blog-card" data-tilt style="cursor:pointer;" data-blog-id="2">
+        <div class="blog-card-image" style="background:linear-gradient(135deg,#2d1b4e 0%,#6b21a8 100%);">
+          <span class="blog-emoji">🚀</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-category">Leadership</span>
+            <span>5 min read</span>
+            <span>Jun 2026</span>
+          </div>
+          <h3>The 150K Impact: Scaling the National Coding & Robotics League</h3>
+          <p>Democratizing tech education for 600+ students and generating a massive nationwide footprint.</p>
+          <span class="blog-read-more">Read Article →</span>
+        </div>
+      </article>
+      <article class="blog-card" data-tilt style="cursor:pointer;" data-blog-id="3">
+        <div class="blog-card-image" style="background:linear-gradient(135deg,#0a1628 0%,#2d6a9f 100%);">
+          <span class="blog-emoji">✈️</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-category">Journey</span>
+            <span>4 min read</span>
+            <span>May 2026</span>
+          </div>
+          <h3>Overcoming the Visa Barrier: The Road to Kent State</h3>
+          <p>Facing multiple rejections, maintaining faith, and eventually securing an expedited F-1 Visa for Fall 2026.</p>
+          <span class="blog-read-more">Read Article →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOFI PLAYER ===== -->
+<div class="lofi-player" id="lofi-player">
+  <div class="lofi-cover">
+    <div class="lofi-visualizer" id="lofi-visualizer">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="lofi-info">
+    <div class="lofi-title">Lofi Beats to Code To</div>
+    <div class="lofi-status">Paused</div>
+  </div>
+  <button id="lofi-toggle-btn">▶</button>
+  <audio id="lofi-audio" loop>
+    <!-- We will inject a lofi stream URL in JS -->
+  </audio>
+</div>
+<style>
+.lofi-player {
+  position: fixed; bottom: 20px; left: 20px; z-index: 1000;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--glass); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: var(--radius-full);
+  padding: 8px 16px 8px 8px; box-shadow: var(--shadow);
+  transition: transform 0.3s;
+}
+.lofi-player:hover { transform: translateY(-3px); }
+.lofi-cover { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.lofi-info { display: flex; flex-direction: column; }
+.lofi-title { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+.lofi-status { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+#lofi-toggle-btn { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; margin-left: 8px; }
+.lofi-visualizer { display: flex; gap: 2px; align-items: flex-end; height: 16px; opacity: 0; transition: opacity 0.3s; }
+.lofi-player.playing .lofi-visualizer { opacity: 1; }
+.lofi-visualizer span { width: 3px; background: #fff; border-radius: 2px; animation: eq 1s infinite alternate; }
+.lofi-visualizer span:nth-child(2) { animation-delay: -0.2s; }
+.lofi-visualizer span:nth-child(3) { animation-delay: -0.4s; }
+.lofi-visualizer span:nth-child(4) { animation-delay: -0.6s; }
+@keyframes eq { 0% { height: 4px; } 100% { height: 16px; } }
+.voice-ai-toggle { background: none; border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; transition: var(--transition); color: var(--text-primary); margin-right: 8px;}
+.voice-ai-toggle:hover, .voice-ai-toggle.listening { border-color: var(--accent-1); color: var(--accent-1); box-shadow: 0 0 15px var(--accent-1); }
+.voice-ai-toggle.listening { animation: pulse-mic 1s infinite alternate; }
+@keyframes pulse-mic { from { transform: scale(1); } to { transform: scale(1.1); } }
+</style>
+
+<!-- ===== FIREBASE SETUP ===== -->
+<section id="faq" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">09 — FAQ</span>
+      <h2 class="section-title">Frequently <span class="gradient-text">asked</span></h2>
+    </div>
+    <div class="faq-container" data-animate="fade-up">
+      <div class="faq-item">
+        <button class="faq-question" tabindex="0">
+          What services do you offer?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">I offer full-stack web development, mobile app development, UI/UX design, API development, database architecture, and technical consulting. From MVPs to production-grade SaaS platforms — I handle the entire development lifecycle.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" tabindex="0">
+          What is your typical project timeline?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">It depends on scope and complexity. A simple landing page takes 1-2 weeks, a full web app 4-8 weeks, and complex SaaS platforms 2-4 months. I always provide a detailed timeline before starting work.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" tabindex="0">
+          What technologies do you specialize in?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">My core stack includes React/Next.js for frontend, Node.js and Java/Spring Boot for backend, PostgreSQL and MongoDB for databases, and Docker for deployment. I'm also experienced with Python, Flutter, and various cloud services.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" tabindex="0">
+          Do you work with international clients?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Absolutely! I've worked with clients from the US, UK, India, UAE, Germany, Australia, and more. I'm comfortable with async communication across time zones and use tools like Slack, Notion, and Linear for seamless collaboration.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" tabindex="0">
+          How do you handle project pricing?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">I offer both fixed-price and hourly models depending on the project. Fixed pricing works best for well-defined projects, while hourly is ideal for ongoing work or projects with evolving scope. Every quote includes a detailed breakdown.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOMENTS / GALLERY SECTION ===== -->
+<section id="gallery" class="section" style="background: var(--bg-secondary);">
+  <div class="container">
+    <div class="section-header" style="text-align: center;" data-animate="fade-up">
+      <span class="section-tag">10 — Moments</span>
+      <h2 class="section-title">Life & <span class="gradient-text">Journey</span></h2>
+      <p class="section-subtitle" style="margin: 16px auto 0;">A collection of pictures and videos from my events, projects, and personal journey.</p>
+    </div>
+    
+    <div id="public-gallery-grid" class="public-gallery-grid" data-cursor-text="DRAG">
+      <!-- Media will be dynamically loaded here by gallery.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">10 — Contact</span>
+      <h2 class="section-title">Let's work <span class="gradient-text">together</span></h2>
+      <p class="section-subtitle">Have a project in mind? I'd love to hear from you. Let's create something amazing.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info" data-animate="fade-right">
+        <div class="contact-card glass-card">
+          <div class="contact-card-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p>mdemonsarker.personal@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-card glass-card">
+          <div class="contact-card-icon">📱</div>
+          <div>
+            <h4>Phone</h4>
+            <p>+880 1575730125</p>
+          </div>
+        </div>
+        <div class="contact-card glass-card">
+          <div class="contact-card-icon">📍</div>
+          <div>
+            <h4>Location</h4>
+            <p>Belkuchi, Sirajganj, Bangladesh</p>
+          </div>
+        </div>
+        <div class="contact-card glass-card">
+          <div class="contact-card-icon">🌐</div>
+          <div>
+            <h4>Social</h4>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" class="social-link magnetic" data-magnetic aria-label="LinkedIn">LinkedIn</a>
+              <a href="https://www.facebook.com/kawsermahmudemon" target="_blank" class="social-link magnetic" data-magnetic aria-label="Facebook">Facebook</a>
+              <a href="https://www.instagram.com/kawsermahmudemon" target="_blank" class="social-link magnetic" data-magnetic aria-label="Instagram">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form glass-card" id="contact-form" data-animate="fade-left">
+        <div class="form-group">
+          <input type="text" class="form-input" id="name" placeholder=" " required autocomplete="name">
+          <label class="form-label" for="name">Your Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" id="email" placeholder=" " required autocomplete="email">
+          <label class="form-label" for="email">Your Email</label>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-input" id="subject" placeholder=" ">
+          <label class="form-label" for="subject">Subject</label>
+        </div>
+        <div class="form-group">
+          <textarea class="form-input" id="message" rows="5" placeholder=" " required></textarea>
+          <label class="form-label" for="message">Your Message</label>
+        </div>
+        <button type="submit" class="btn-primary btn-submit magnetic" data-magnetic>
+          <span class="btn-text">Send Message</span>
+          <span class="btn-loading" aria-hidden="true">Sending...</span>
+          <span class="btn-success" aria-hidden="true">Sent! ⚡</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <span class="nav-logo"><span class="logo-icon">⚡</span> Emon</span>
+    </div>
+    <p class="footer-copy">Designed & Built with <span class="heartbeat">❤️</span> by Emon<br><span class="footer-year">© <span id="current-year">2026</span> All Rights Reserved</span></p>
+    <div class="footer-links">
+      <a href="https://www.facebook.com/kawsermahmudemon" target="_blank" aria-label="Facebook">Facebook</a>
+      <a href="https://www.instagram.com/kawsermahmudemon" target="_blank" aria-label="Instagram">Instagram</a>
+      <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<!-- Firebase Services -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+
+<!-- ===== TERMINAL EASTER EGG ===== -->
+<div class="terminal-launcher" id="terminal-launcher" title="Open Terminal (Ctrl + ~)" data-cursor-text="TERM">
+  &gt;_
+</div>
+
+<div class="terminal-overlay" id="terminal-overlay">
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-controls">
+        <div class="term-btn term-close" id="terminal-close"></div>
+        <div class="term-btn term-min"></div>
+        <div class="term-btn term-max"></div>
+      </div>
+      <div class="terminal-title">visitor@emon.dev:~</div>
+    </div>
+    <div class="terminal-body">
+      <div class="terminal-output" id="terminal-output"></div>
+      <div class="term-input-line">
+        <span class="term-prompt">visitor@emon.dev:~$</span>
+        <input type="text" class="term-input" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS — Order matters -->
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="js/apple-scroll.js"></script>
+<script src="js/smooth-scroll.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/scroll-animations.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/dynamic-data.js"></script>
+<script src="js/tilt.js"></script>
+<script src="js/testimonials.js"></script>
+<script src="js/faq.js"></script>
+<script src="js/project-modal.js"></script>
+<script src="js/github-stats.js"></script>
+<!-- Custom Scripts -->
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/admin-access.js"></script>
+<script src="js/konami.js"></script>
+<script src="js/ascii-globe.js"></script>
+<script src="js/widgets.js"></script>
+<script src="js/showreel.js"></script>
+<script src="js/fps-monitor.js"></script>
+<script src="js/blog-modal.js"></script>
+<script src="js/contact-form.js"></script>
+<script src="js/voice-ai.js"></script>
+<script src="js/god-mode.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/fluid-bg.js"></script>
+<script src="js/context-menu.js"></script>
+<script src="js/console-easter-egg.js"></script>
+
+<!-- Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+</script>
+
+<script src="js/theme-switcher.js"></script>
+<script src="js/spotlight.js"></script>
+<script src="js/sounds.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/physics-web.js"></script>
+<script src="js/presence.js"></script>
+<script src="js/emon-ai.js"></script>
+<script src="js/ascii-globe.js"></script>
+<script src="js/konami.js"></script>
+<script src="js/webgl-fluid.js"></script>
+<script src="js/voice-ai.js"></script>
+<script src="js/lofi-player.js"></script>
+<script src="js/preloader.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
