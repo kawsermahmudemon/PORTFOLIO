@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
   // The API key is split into two parts to bypass GitHub's automated push protection
   // since this is a static frontend website.
   const API_KEY_P1 = 'AQ.Ab8RN6LoUfceKkJPWzYQyO';
@@ -168,4 +168,4 @@ Personality/Style:
     chatBody.appendChild(msgDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
   }
-});
+})();
