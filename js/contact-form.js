@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Grab form data
-        const name = form.querySelector('input[name="name"]')?.value || '';
-        const email = form.querySelector('input[name="email"]')?.value || '';
-        const message = form.querySelector('textarea[name="message"]')?.value || '';
-        const subject = form.querySelector('input[name="subject"]')?.value || `Portfolio Contact from ${name}`;
+        const name = form.querySelector('#name')?.value || '';
+        const email = form.querySelector('#email')?.value || '';
+        const message = form.querySelector('#message')?.value || '';
+        const subject = form.querySelector('#subject')?.value || `Portfolio Contact from ${name}`;
         
         // WEB3FORMS API KEY
         const ACCESS_KEY = 'ae30e3f3-2f09-42a4-b9c0-24781e9963f0';
