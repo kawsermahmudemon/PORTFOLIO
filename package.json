@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "npx -y live-server --port=3000 --no-browser --quiet",
-    "start": "npx -y live-server --port=3000",
+    "serve": "npx -y live-server --port=3000",
     "deploy": "vercel --prod",
-    "build": "echo 'No build step'"
+    "build": "echo \"No build step\""
   },
   "keywords": [
     "portfolio",
