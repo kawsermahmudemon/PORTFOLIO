@@ -685,26 +685,41 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   letter-spacing: 0.5px;
 }
-.hero-description-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-4);
-  max-width: 900px;
-  margin: 0 auto;
+.hero-description-card {
+  max-width: 850px;
+  margin: 0 auto var(--sp-8) auto;
+  padding: 2rem 3rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
-.hero-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
-  opacity: 0.5;
+.hero-description-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
 }
-.hero-description {
-  flex: 2;
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
+.hero-description-content {
   text-align: center;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.highlight-text {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.sub-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
   font-weight: 300;
 }
 .badge-dot {

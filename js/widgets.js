@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
   const widgetsHtml = `
-    <div class="dashboard-widgets glass-card" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
-      <div class="widget-time" style="display: flex; flex-direction: column;">
-        <span id="live-time" class="time-display" style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--color-accent); font-weight: bold;">00:00:00</span>
-        <span class="time-label" style="font-size: 0.8rem; color: var(--text-light); opacity: 0.7;">Sirajganj, BD</span>
+    <div class="dashboard-widgets" style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+      <div class="widget-card glass-card" style="display: flex; align-items: center; justify-content: center; padding: 25px; border-radius: 20px; text-align: center; flex-direction: column; gap: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+        <div style="position:absolute; top:0; left:0; width:100%; height:3px; background: linear-gradient(90deg, var(--accent-1), transparent);"></div>
+        <span id="live-time" class="time-display" style="font-size: 2rem; font-family: var(--font-mono); color: var(--text-primary); font-weight: 700; letter-spacing: 2px; text-shadow: 0 0 20px rgba(255,87,34,0.3);">00:00:00</span>
+        <span class="time-label" style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">📍 Sirajganj, Bangladesh</span>
       </div>
-      <div class="widget-weather" style="display: flex; align-items: center; gap: 15px;">
-        <span id="weather-icon" class="weather-icon" style="font-size: 2rem;">☁️</span>
-        <div class="weather-info" style="display: flex; flex-direction: column;">
-          <span id="weather-temp" class="weather-temp" style="font-size: 1.2rem; font-weight: bold; color: var(--text-light);">--°C</span>
-          <span id="weather-desc" class="weather-desc" style="font-size: 0.8rem; color: var(--text-light); opacity: 0.7;">Loading...</span>
+      <div class="widget-card glass-card" style="display: flex; align-items: center; justify-content: center; padding: 25px; border-radius: 20px; text-align: center; flex-direction: column; gap: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+        <div style="position:absolute; top:0; left:0; width:100%; height:3px; background: linear-gradient(90deg, transparent, var(--accent-2));"></div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span id="weather-icon" class="weather-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));">☁️</span>
+          <span id="weather-temp" class="weather-temp" style="font-size: 2rem; font-weight: bold; color: var(--text-primary); font-family: var(--font-mono);">--°C</span>
         </div>
+        <span id="weather-desc" class="weather-desc" style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Loading...</span>
       </div>
     </div>
   `;
