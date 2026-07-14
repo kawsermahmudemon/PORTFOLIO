@@ -718,9 +718,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
   line-height: 1.75;
   max-width: 540px;
-  margin-bottom: var(--sp-10);
+  margin: 0 auto var(--sp-10) auto;
 }
-.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .hero-scroll-indicator {
   position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 10px;
