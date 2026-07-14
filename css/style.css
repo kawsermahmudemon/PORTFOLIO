@@ -1273,3 +1273,15 @@ textarea.form-input + .form-label { top: 18px; transform: none; }
 
 /* Form Button States */
 .btn-loading, .btn-success { display: none; }
+
+/* ===== ECA SECTION ===== */
+.eca-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: var(--sp-10); }
+.eca-card { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: var(--transition); position: relative; }
+.eca-card:hover { transform: translateY(-4px) scale(1.02); border-color: var(--accent-1); box-shadow: 0 10px 25px rgba(0,0,0,0.2), 0 0 15px rgba(245, 158, 11, 0.1); }
+.eca-thumbnail { height: 200px; background: var(--gradient-subtle); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.eca-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.eca-card:hover .eca-thumbnail img { transform: scale(1.08); }
+.eca-icon-pdf { font-size: 3rem; color: var(--accent-1); filter: drop-shadow(0 2px 10px rgba(245,158,11,0.2)); }
+.eca-info { padding: 16px; }
+.eca-title { font-size: 0.95rem; color: var(--text-primary); font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+.eca-type { font-size: 0.75rem; color: var(--accent-1); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; }
