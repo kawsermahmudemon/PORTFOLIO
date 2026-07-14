@@ -605,14 +605,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 .hero-content { max-width: 740px; }
 
-/* Hero Grid — Two Column with Portrait */
+/* Hero Grid — Single Column (Portrait Removed) */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr;
   gap: var(--sp-16);
   align-items: center;
 }
-.hero-text { max-width: 740px; }
+.hero-text { max-width: 800px; margin: 0 auto; text-align: center; }
+.hero-text .hero-badge { margin: 0 auto var(--sp-6); }
+.hero-cta { justify-content: center; }
 
 /* Hero Portrait */
 .hero-portrait {
