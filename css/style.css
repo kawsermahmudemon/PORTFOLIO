@@ -1206,6 +1206,66 @@ h1, h2, h3, h4, h5, h6 {
   gap: 12px;
 }
 
+/* ══════════ SHOWREEL MODAL ══════════ */
+.showreel-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.showreel-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+.showreel-modal-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.showreel-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+  transform: scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+}
+.showreel-modal.active .showreel-modal-content {
+  transform: scale(1);
+}
+.showreel-modal-close {
+  position: absolute;
+  top: 20px; right: 30px;
+  color: white;
+  font-size: 3rem;
+  font-weight: 300;
+  background: none; border: none; cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.showreel-modal-close:hover {
+  color: var(--accent-1);
+  transform: scale(1.1);
+}
+.video-container {
+  width: 100%; height: 100%;
+  background: #000;
+}
+.video-container iframe {
+  width: 100%; height: 100%;
+}
+
 /* ══════════ CONTACT ══════════ */
 .contact-grid { display: flex; justify-content: center; max-width: 600px; margin: 0 auto; width: 100%; }
 .contact-info { display: flex; flex-direction: column; gap: 14px; }

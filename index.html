@@ -1468,5 +1468,43 @@
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 <script src="js/premium-scroll.js"></script>
 
+<!-- ===== SHOWREEL MODAL ===== -->
+<div id="showreel-modal" class="showreel-modal" aria-hidden="true">
+  <div class="showreel-modal-overlay"></div>
+  <button class="showreel-modal-close" aria-label="Close reel">&times;</button>
+  <div class="showreel-modal-content">
+    <div class="video-container">
+      <iframe id="showreel-video" src="https://www.youtube.com/embed/L_LUpnjgPso?enablejsapi=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btnShowreel = document.getElementById('btn-showreel');
+  const modal = document.getElementById('showreel-modal');
+  const overlay = modal.querySelector('.showreel-modal-overlay');
+  const closeBtn = modal.querySelector('.showreel-modal-close');
+  const video = document.getElementById('showreel-video');
+
+  // We add 'autoplay=1' when opening so it plays immediately
+  const videoSrc = "https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1";
+
+  function openModal() {
+    modal.classList.add('active');
+    video.src = videoSrc; // Load and autoplay
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    video.src = ""; // Stop the video
+  }
+
+  if(btnShowreel) btnShowreel.addEventListener('click', openModal);
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  if(overlay) overlay.addEventListener('click', closeModal);
+});
+</script>
+
 </body>
 </html>
