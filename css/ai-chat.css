@@ -4,75 +4,26 @@
 
 /* Floating Action Button */
 .ai-fab {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, rgba(20,20,22,0.9), rgba(10,10,12,0.95));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  position: fixed; bottom: 24px; right: 80px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: #000;
+  z-index: 999; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  overflow: hidden;
 }
 
-.ai-fab::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%; width: 200%; height: 200%;
-  background: conic-gradient(from 0deg, transparent, var(--primary-color, #f59e0b), transparent 30%);
-  animation: rotate-border 4s linear infinite;
+.ai-fab:hover { 
+  transform: scale(1.1); 
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6); 
+}
+
+.ai-fab.active {
+  transform: scale(0);
   opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.ai-fab:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.3);
-}
-
-.ai-fab:hover::before {
-  opacity: 0.5;
-}
-
-.ai-fab-inner {
-  position: absolute;
-  inset: 2px;
-  background: #09090b;
-  border-radius: 50%;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ai-fab svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: var(--primary-color, #f59e0b);
-  stroke-width: 2;
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.ai-fab:hover svg {
-  transform: scale(1.1) rotate(15deg);
-}
-
-.ai-fab.active svg {
-  transform: rotate(45deg);
-  stroke: #fff;
-}
-
-@keyframes rotate-border {
-  100% { transform: rotate(360deg); }
+  visibility: hidden;
 }
 
 /* Chat Window */

@@ -32,9 +32,7 @@ Personality/Style:
   const widgetHTML = `
     <!-- Floating Action Button -->
     <div class="ai-fab hover-magnetic" id="ai-fab" title="Chat with Emon's AI">
-      <div class="ai-fab-inner">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
+      ⚡
     </div>
 
     <!-- Chat Window -->
