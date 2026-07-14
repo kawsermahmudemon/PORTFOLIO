@@ -12,7 +12,7 @@ Your primary goal is to answer questions from recruiters, potential clients, and
 
 About MD Emon Sarker:
 - Role: Cyber Security Student, Content Creator, Tech Enthusiast.
-- University: Southeast University, Bangladesh.
+- University: Kent State University (Fall '26).
 - Skills: Cyber Security, Networking, Linux, React, Next.js, Node.js, C++, Java, Python.
 - Key Achievements: 
   - Global Finalist in the 5th 3Zero Leadership Challenge (Japan) - SDG #3 Health Innovation.
@@ -30,11 +30,6 @@ Personality/Style:
 
   // HTML elements will be injected first
   const widgetHTML = `
-    <!-- Floating Action Button -->
-    <div class="ai-fab hover-magnetic" id="ai-fab" title="Chat with Emon's AI">
-      ⚡
-    </div>
-
     <!-- Chat Window -->
     <div class="ai-chat-window" id="ai-chat-window">
       <div class="ai-chat-header">
@@ -45,6 +40,7 @@ Personality/Style:
           <h3 class="ai-header-title">Emon's AI Assistant</h3>
           <div class="ai-header-status">ONLINE</div>
         </div>
+        <button class="ai-chat-close" id="ai-chat-close" aria-label="Close Chat">&times;</button>
       </div>
       
       <div class="ai-chat-body" id="ai-chat-body">
@@ -64,17 +60,15 @@ Personality/Style:
 
   document.body.insertAdjacentHTML('beforeend', widgetHTML);
 
-  const fab = document.getElementById('ai-fab');
+  const heroBadge = document.querySelector('.hero-badge');
   const chatWindow = document.getElementById('ai-chat-window');
+  const chatCloseBtn = document.getElementById('ai-chat-close');
   const chatBody = document.getElementById('ai-chat-body');
   const chatForm = document.getElementById('ai-chat-form');
   const chatInput = document.getElementById('ai-chat-input');
   const submitBtn = document.getElementById('ai-chat-submit');
 
-  let conversationHistory = [
-    { role: 'user', parts: [{ text: systemInstruction }] },
-    { role: 'model', parts: [{ text: 'Understood. I will act as Emon\'s AI Assistant.' }] }
-  ];
+  let conversationHistory = [];
 
   // Simple Markdown to HTML parser
   function parseMarkdown(text) {
@@ -85,18 +79,25 @@ Personality/Style:
     return html;
   }
 
-  // Toggle Chat
-  fab.addEventListener('click', () => {
-    const isActive = chatWindow.classList.contains('active');
-    if (isActive) {
+  // Toggle Chat via Hero Badge
+  if (heroBadge) {
+    heroBadge.style.cursor = 'pointer'; // Make it look clickable
+    heroBadge.title = 'Click to chat with AI';
+    heroBadge.addEventListener('click', () => {
+      const isActive = chatWindow.classList.contains('active');
+      if (!isActive) {
+        chatWindow.classList.add('active');
+        setTimeout(() => chatInput.focus(), 300);
+      }
+    });
+  }
+
+  // Close Chat via Close Button
+  if (chatCloseBtn) {
+    chatCloseBtn.addEventListener('click', () => {
       chatWindow.classList.remove('active');
-      fab.classList.remove('active');
-    } else {
-      chatWindow.classList.add('active');
-      fab.classList.add('active');
-      setTimeout(() => chatInput.focus(), 300);
-    }
-  });
+    });
+  }
 
   chatInput.addEventListener('input', () => {
     submitBtn.disabled = chatInput.value.trim() === '';
@@ -125,6 +126,7 @@ Personality/Style:
       conversationHistory.push({ role: 'user', parts: [{ text: message }] });
 
       const requestBody = {
+        system_instruction: { parts: [{ text: systemInstruction }] },
         contents: conversationHistory,
         generationConfig: {
           temperature: 0.7,
@@ -139,7 +141,12 @@ Personality/Style:
       });
 
       if (!response.ok) {
-        throw new Error('API Error: ' + response.status);
+        const errorData = await response.json().catch(() => ({}));
+        let errorMessage = response.statusText;
+        if (errorData && errorData.error && errorData.error.message) {
+          errorMessage = errorData.error.message;
+        }
+        throw new Error('API Error: ' + errorMessage);
       }
 
       const data = await response.json();
@@ -155,7 +162,9 @@ Personality/Style:
     } catch (error) {
       console.error(error);
       typingIndicator.remove();
-      appendMessage('assistant', 'Sorry, I am having trouble connecting right now. Please try again later.');
+      // Remove the failed user message from history so we don't send it again blindly later
+      conversationHistory.pop();
+      appendMessage('assistant', `<span style="color: #ff4444;">Error: ${error.message}</span><br>Please check your API key or try again later.`);
     }
   });
 
