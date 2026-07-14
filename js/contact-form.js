@@ -29,9 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subject = form.querySelector('input[name="subject"]')?.value || `Portfolio Contact from ${name}`;
         
         // WEB3FORMS API KEY
-        // Emon, you need to get a free access key from https://web3forms.com/ 
-        // Put your email there, they will send you a key. Replace 'YOUR_ACCESS_KEY_HERE' with it.
-        const ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
+        const ACCESS_KEY = 'ae30e3f3-2f09-42a4-b9c0-24781e9963f0';
 
         try {
           const response = await fetch('https://api.web3forms.com/submit', {
