@@ -1567,7 +1567,7 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
     }
 
     let lines = [
-      `[CRITICAL] UNAUTHORIZED CONNECTION ESTABLISHED FROM ${getIP()}`,
+      `[CRITICAL] UNAUTHORIZED CONNECTION ESTABLISHED...`,
       `BYPASSING KERNEL FIREWALL... [SUCCESS]`,
       `INJECTING EXECUTABLE PAYLOAD "rootkit_v8.exe"... [SUCCESS]`,
       `MOUNTING ROOT FILE SYSTEM... [SUCCESS]`,
@@ -1576,8 +1576,7 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
       `[WARNING] FIREWALL BREACHED. NO WAY OUT.`,
       `ACTIVATING WEBCAM AND MICROPHONE... [CONNECTED]`,
       `SCANNING BIOMETRICS... FACE DETECTED.`,
-      `ANALYZING TARGET... PUPIL DILATION DETECTED. HEART RATE ELEVATED.`,
-      `EXTRACTING ALL PRIVATE CREDENTIALS...`
+      `ANALYZING TARGET... PUPIL DILATION DETECTED. HEART RATE ELEVATED.`
     ];
 
     const folders = [
@@ -1593,6 +1592,12 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
     let currentLine = 0;
     let nextBeatTime = audioCtx ? audioCtx.currentTime + 0.5 : 0;
     let beatInterval = 1.0;
+
+    let geoData = { ip: getIP(), city: "UNKNOWN", region: "UNKNOWN", country: "UNKNOWN" };
+    fetch('https://get.geojs.io/v1/ip/geo.json')
+      .then(res => res.json())
+      .then(data => { geoData = data; })
+      .catch(e => console.log(e));
 
     prankInterval = setInterval(() => {
       step++;
@@ -1633,19 +1638,41 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
           }
         }
       } 
-      else if (step >= 60 && step < 120) {
+      else if (step >= 60 && step < 110) {
+        // The Personal Geolocation Twist
+        if (step === 60) {
+          div.textContent = `[TRACE] REVERSE TRACING CONNECTION...`;
+          terminal.appendChild(div);
+        } else if (step === 80) {
+          div.textContent = `[TRACE] PINGING LOCAL TOWERS...`;
+          terminal.appendChild(div);
+        } else if (step === 109) {
+          div.textContent = `[TARGET LOCATED] IP: ${geoData.ip} | LOCATION: ${geoData.city}, ${geoData.region}, ${geoData.country}`;
+          div.style.color = "#fff";
+          div.style.background = "#f00";
+          div.style.fontSize = "18px";
+          terminal.appendChild(div);
+          
+          try {
+            let msg = new SpeechSynthesisUtterance(`Target located in ${geoData.city}. System compromised.`);
+            msg.pitch = 0.1;
+            msg.rate = 0.8;
+            window.speechSynthesis.speak(msg);
+          } catch(e) {}
+        }
+      }
+      else if (step >= 110 && step < 160) {
         // Brute force phase
         const hash = Math.random().toString(16).substr(2,16).toUpperCase();
         div.textContent = `[BRUTE_FORCE] Attempting hash collision: 0x${hash} ... [FAILED]`;
-        if (step === 119) {
+        if (step === 159) {
           div.textContent = `[BRUTE_FORCE] MASTER PASSWORD CRACKED. ROOT ACCESS GRANTED.`;
-          div.style.color = "#fff";
-          div.style.background = "#f00";
-          div.style.fontSize = "20px";
+          div.style.color = "#f00";
+          div.style.fontWeight = "bold";
         }
         terminal.appendChild(div);
       } 
-      else if (step >= 120 && step < 220) {
+      else if (step >= 160 && step < 220) {
         // Directory scraping (very scary files)
         if (step % 12 === 0) {
            const folder = folders[Math.floor(Math.random()*folders.length)];
@@ -1692,10 +1719,17 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
         terminal.style.transform = "none";
         terminal.style.filter = "none";
         
+        try {
+          let msg = new SpeechSynthesisUtterance(`I see you.`);
+          msg.pitch = 0.01;
+          msg.rate = 0.5;
+          window.speechSynthesis.speak(msg);
+        } catch(e) {}
+        
         const skullDiv = document.createElement('div');
         skullDiv.innerHTML = `<pre style="color:#f00; font-size:1.5vw; min-font-size:12px; font-weight:bold; text-shadow: 0 0 20px #f00, 0 0 40px #f00; margin-bottom:20px;">${asciiSkull}</pre>
         <div style="font-size:6vw; color:#f00; font-weight:bold; text-shadow: 0 0 30px #f00, 0 0 60px #f00; animation: blinkFast 0.1s infinite; text-align:center; font-family: sans-serif;">I SEE YOU.</div>
-        <div style="color:#fff; font-size:2vw; text-align:center; margin-top:20px; font-weight: bold; background: #f00; padding: 10px;">YOUR DEVICE IS LOCKED. DO NOT TURN OFF YOUR COMPUTER.<br>YOUR CAMERA IS RECORDING.</div>`;
+        <div style="color:#fff; font-size:2vw; text-align:center; margin-top:20px; font-weight: bold; background: #f00; padding: 10px;">YOUR DEVICE IS LOCKED. LOCAL AUTHORITIES IN ${geoData.city.toUpperCase()} HAVE BEEN DISPATCHED.<br>YOUR CAMERA IS RECORDING.</div>`;
         terminal.appendChild(skullDiv);
         
         overlay.style.animation = "flashRed 0.05s infinite";
