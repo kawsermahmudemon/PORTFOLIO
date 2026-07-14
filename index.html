@@ -1536,6 +1536,8 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
     overlay.style.display = 'block';
     overlay.style.animation = "";
     terminal.style.alignItems = "flex-start";
+    terminal.style.transform = "none";
+    terminal.style.filter = "none";
     
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(()=>{});
@@ -1544,125 +1546,193 @@ $$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
     terminal.innerHTML = "";
     step = 0;
     
+    let audioCtx;
     try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(100, ctx.currentTime);
-      osc.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 1);
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     } catch(e) {}
+
+    function playHeartbeat(time) {
+      if(!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(60, time);
+      osc.frequency.exponentialRampToValueAtTime(30, time + 0.1);
+      gain.gain.setValueAtTime(2, time);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + 0.15);
+      osc.start(time);
+      osc.stop(time + 0.2);
+    }
 
     let lines = [
       `[CRITICAL] UNAUTHORIZED CONNECTION ESTABLISHED FROM ${getIP()}`,
       `BYPASSING KERNEL FIREWALL... [SUCCESS]`,
       `INJECTING EXECUTABLE PAYLOAD "rootkit_v8.exe"... [SUCCESS]`,
       `MOUNTING ROOT FILE SYSTEM... [SUCCESS]`,
-      `ACTIVATING SILENT MODE... [SUCCESS]`
+      `ACTIVATING SILENT MODE... [SUCCESS]`,
+      `INITIALIZING HARDWARE OVERRIDE...`,
+      `[WARNING] FIREWALL BREACHED. NO WAY OUT.`,
+      `ACTIVATING WEBCAM AND MICROPHONE... [CONNECTED]`,
+      `SCANNING BIOMETRICS... FACE DETECTED.`,
+      `ANALYZING TARGET... PUPIL DILATION DETECTED. HEART RATE ELEVATED.`,
+      `EXTRACTING ALL PRIVATE CREDENTIALS...`
     ];
 
     const folders = [
-      "/home/user/Documents", 
-      "/var/www/html", 
-      "/etc/passwd", 
-      "/Users/Admin/Desktop/Passwords.txt", 
+      "C:\\Users\\Admin\\Desktop\\Passwords_Unencrypted.txt", 
       "C:\\Users\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data", 
-      "/Users/Admin/Pictures/Webcam_Captures",
-      "C:\\Users\\Documents\\Financial_Records",
-      "C:\\Windows\\System32\\config\\SAM"
+      "C:\\Windows\\System32\\config\\SAM",
+      "C:\\Users\\Documents\\Tax_Returns_2025.pdf",
+      "C:\\Users\\Pictures\\Private_Webcam_Captures",
+      "C:\\Users\\Documents\\Bank_Statements.xlsx",
+      "C:\\Users\\AppData\\Roaming\\Discord\\Local Storage\\leveldb"
     ];
 
     let currentLine = 0;
+    let nextBeatTime = audioCtx ? audioCtx.currentTime + 0.5 : 0;
+    let beatInterval = 1.0;
 
     prankInterval = setInterval(() => {
       step++;
       const div = document.createElement('div');
 
-      if (step < 20) {
-        // Intro phase (slow)
-        if (step % 4 === 0) {
+      // Audio heartbeat logic
+      if (audioCtx && audioCtx.currentTime > nextBeatTime && step < 400) {
+        playHeartbeat(audioCtx.currentTime);
+        playHeartbeat(audioCtx.currentTime + 0.15); // double beat
+        nextBeatTime = audioCtx.currentTime + beatInterval;
+        if (beatInterval > 0.15) beatInterval -= 0.02; // speed up heart rate
+      }
+
+      // Visual Glitching starts at step 150
+      if (step > 150 && step < 400) {
+        if (Math.random() > 0.8) {
+          const x = (Math.random() - 0.5) * (step/10);
+          const y = (Math.random() - 0.5) * (step/10);
+          terminal.style.transform = `translate(${x}px, ${y}px)`;
+          terminal.style.filter = `blur(${Math.random()*2}px)`;
+        } else {
+          terminal.style.transform = "none";
+          terminal.style.filter = "none";
+        }
+      }
+
+      if (step < 60) {
+        // Creepy slow intro
+        if (step % 5 === 0) {
           if (currentLine < lines.length) {
             div.textContent = "root@kali:~# " + lines[currentLine];
+            if (lines[currentLine].includes("FACE DETECTED") || lines[currentLine].includes("HEART RATE")) {
+              div.style.color = "#f00";
+              div.style.fontWeight = "bold";
+            }
             currentLine++;
             terminal.appendChild(div);
           }
         }
       } 
-      else if (step >= 20 && step < 80) {
+      else if (step >= 60 && step < 120) {
         // Brute force phase
         const hash = Math.random().toString(16).substr(2,16).toUpperCase();
         div.textContent = `[BRUTE_FORCE] Attempting hash collision: 0x${hash} ... [FAILED]`;
-        if (step === 79) {
-          div.textContent = `[BRUTE_FORCE] MATCH FOUND! ROOT PRIVILEGES ACQUIRED.`;
+        if (step === 119) {
+          div.textContent = `[BRUTE_FORCE] MASTER PASSWORD CRACKED. ROOT ACCESS GRANTED.`;
           div.style.color = "#fff";
           div.style.background = "#f00";
+          div.style.fontSize = "20px";
         }
         terminal.appendChild(div);
       } 
-      else if (step >= 80 && step < 160) {
-        // Directory scraping
-        if (step % 10 === 0) {
+      else if (step >= 120 && step < 220) {
+        // Directory scraping (very scary files)
+        if (step % 12 === 0) {
            const folder = folders[Math.floor(Math.random()*folders.length)];
-           div.textContent = `root@kali:~# tar -czf data.tar.gz "${folder}" ... [COMPRESSING]`;
+           div.textContent = `root@kali:~# tar -czf data.tar.gz "${folder}" ... [UPLOADING]`;
            terminal.appendChild(div);
         } else {
-           div.textContent = `  -> Adding file: ` + Math.random().toString(36).substring(7) + `.dat`;
+           div.textContent = `  -> Copied file: ` + Math.random().toString(36).substring(7) + `.dat [${Math.floor(Math.random()*900)+100} KB]`;
            div.style.opacity = 0.6;
            terminal.appendChild(div);
         }
       }
-      else if (step >= 160 && step < 260) {
-        // Downloading phase with progress bar
+      else if (step >= 220 && step < 320) {
+        // Intense Download Phase
         if (step % 2 === 0) {
-           const prog = Math.floor(((step - 160) / 100) * 100);
+           const prog = Math.floor(((step - 220) / 100) * 100);
            let bar = "[";
-           for(let i=0; i<25; i++) { bar += (i < prog/4) ? "#" : "="; }
+           for(let i=0; i<30; i++) { bar += (i < (prog/100)*30) ? "#" : "="; }
            bar += "]";
-           div.textContent = `UPLOADING SENSITIVE DATA TO 194.55.0.21: ${bar} ${prog}%`;
-           if (prog === 99) div.textContent = "UPLOAD COMPLETE. 142.6 GB TRANSFERRED.";
+           div.textContent = `CLONING DEVICE HARD DRIVE: ${bar} ${prog}%`;
+           div.style.color = (prog % 5 === 0) ? "#f00" : "#0f0";
+           if (prog === 99) {
+             div.textContent = "CLONE COMPLETE. ALL DATA COMPROMISED.";
+             div.style.color = "#fff";
+             div.style.background = "#f00";
+           }
            terminal.appendChild(div);
         }
       }
-      else if (step >= 260 && step < 320) {
-        // Fast matrix hex dump
+      else if (step >= 320 && step < 400) {
+        // Panic Matrix Phase
         const h1 = Math.random().toString(16).substr(2,8).toUpperCase();
         const h2 = Math.random().toString(16).substr(2,8).toUpperCase();
         const h3 = Math.random().toString(16).substr(2,8).toUpperCase();
         const h4 = Math.random().toString(16).substr(2,8).toUpperCase();
-        div.textContent = `0x${h1} 0x${h2} 0x${h3} 0x${h4} EXTRACTING_HASH...`;
+        div.textContent = `0x${h1} 0x${h2} 0x${h3} 0x${h4} SYSTEM_FAILURE_IMMINENT...`;
+        div.style.color = Math.random() > 0.5 ? "#f00" : "#0f0";
         div.style.opacity = 0.8;
         terminal.appendChild(div);
       } 
-      else if (step === 321) {
-        // Boom Finale
+      else if (step === 401) {
+        // THE HORROR FINALE
         terminal.innerHTML = "";
         terminal.style.alignItems = "center";
+        terminal.style.transform = "none";
+        terminal.style.filter = "none";
         
         const skullDiv = document.createElement('div');
-        skullDiv.innerHTML = `<pre style="color:#f00; font-size:1vw; min-font-size:12px; font-weight:bold; text-shadow: 0 0 15px #f00; margin-bottom:20px;">${asciiSkull}</pre><div style="font-size:4vw; color:#f00; font-weight:bold; text-shadow: 0 0 30px #f00; animation: blinkFast 0.5s infinite; text-align:center;">SYSTEM FULLY COMPROMISED</div><div style="color:#f00; font-size:2vw; text-align:center; margin-top:20px;">ALL LOCAL DATA HAS BEEN ENCRYPTED AND UPLOADED.<br>WEBCAM FEED ACTIVATED AND RECORDING.</div>`;
+        skullDiv.innerHTML = `<pre style="color:#f00; font-size:1.5vw; min-font-size:12px; font-weight:bold; text-shadow: 0 0 20px #f00, 0 0 40px #f00; margin-bottom:20px;">${asciiSkull}</pre>
+        <div style="font-size:6vw; color:#f00; font-weight:bold; text-shadow: 0 0 30px #f00, 0 0 60px #f00; animation: blinkFast 0.1s infinite; text-align:center; font-family: sans-serif;">I SEE YOU.</div>
+        <div style="color:#fff; font-size:2vw; text-align:center; margin-top:20px; font-weight: bold; background: #f00; padding: 10px;">YOUR DEVICE IS LOCKED. DO NOT TURN OFF YOUR COMPUTER.<br>YOUR CAMERA IS RECORDING.</div>`;
         terminal.appendChild(skullDiv);
         
-        overlay.style.animation = "flashRed 0.15s infinite";
+        overlay.style.animation = "flashRed 0.05s infinite";
         
-        if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 1000]);
+        if (navigator.vibrate) navigator.vibrate([1000, 500, 1000, 500, 2000]);
         
-        try {
-          const ctx = new (window.AudioContext || window.webkitAudioContext)();
-          const osc = ctx.createOscillator();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(40, ctx.currentTime);
-          osc.connect(ctx.destination);
-          osc.start();
-          osc.stop(ctx.currentTime + 3);
-        } catch(e) {}
+        if(audioCtx) {
+          // Terrifying loud screech
+          const osc1 = audioCtx.createOscillator();
+          const osc2 = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc1.type = 'sawtooth';
+          osc2.type = 'square';
+          osc1.frequency.setValueAtTime(200, audioCtx.currentTime);
+          osc1.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.5);
+          osc2.frequency.setValueAtTime(205, audioCtx.currentTime);
+          osc2.frequency.exponentialRampToValueAtTime(1950, audioCtx.currentTime + 0.5);
+          
+          gain.gain.setValueAtTime(0, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.1);
+          
+          osc1.connect(gain);
+          osc2.connect(gain);
+          gain.connect(audioCtx.destination);
+          
+          osc1.start(audioCtx.currentTime);
+          osc2.start(audioCtx.currentTime);
+          osc1.stop(audioCtx.currentTime + 5);
+          osc2.stop(audioCtx.currentTime + 5);
+        }
       }
 
       // Prevent DOM bloat
-      if (terminal.childNodes.length > 40 && step < 321) {
+      if (terminal.childNodes.length > 50 && step < 401) {
         terminal.removeChild(terminal.firstChild);
       }
-    }, 50); // Speed up interval to 50ms for even faster typing
+    }, 40); // 40ms interval for intense speed
   }
 
   closeBtn.addEventListener('click', () => {
