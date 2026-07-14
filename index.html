@@ -1472,9 +1472,9 @@
 <div id="showreel-modal" class="showreel-modal" aria-hidden="true">
   <div class="showreel-modal-overlay"></div>
   <button class="showreel-modal-close" aria-label="Close reel">&times;</button>
-  <div class="showreel-modal-content">
+  <div class="showreel-modal-content" style="max-width: 800px; aspect-ratio: 16/9; pointer-events: none;">
     <div class="video-container">
-      <video id="showreel-video" src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-4174-large.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+      <iframe id="showreel-video" src="" frameborder="0" allow="autoplay; fullscreen" style="width: 100%; height: 100%; pointer-events: none;"></iframe>
     </div>
   </div>
 </div>
@@ -1487,17 +1487,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = modal.querySelector('.showreel-modal-close');
   const video = document.getElementById('showreel-video');
 
+  // YouTube video configured to act as an auto-playing, muted, looping GIF
+  const videoSrc = "https://www.youtube.com/embed/F74LLDhAhqw?autoplay=1&mute=1&loop=1&playlist=F74LLDhAhqw&controls=0&modestbranding=1&rel=0&disablekb=1";
+
   function openModal() {
     modal.classList.add('active');
-    if(video) video.play();
+    if(video) video.src = videoSrc;
   }
 
   function closeModal() {
     modal.classList.remove('active');
-    if(video) {
-      video.pause();
-      video.currentTime = 0;
-    }
+    if(video) video.src = "";
   }
 
   if(btnShowreel) btnShowreel.addEventListener('click', openModal);
