@@ -1472,9 +1472,9 @@
 <div id="showreel-modal" class="showreel-modal" aria-hidden="true">
   <div class="showreel-modal-overlay"></div>
   <button class="showreel-modal-close" aria-label="Close reel">&times;</button>
-  <div class="showreel-modal-content" style="max-width: 800px; aspect-ratio: 16/9; pointer-events: none;">
+  <div class="showreel-modal-content" style="max-width: 800px; aspect-ratio: 16/9;">
     <div class="video-container">
-      <iframe id="showreel-video" src="" frameborder="0" allow="autoplay; fullscreen" style="width: 100%; height: 100%; pointer-events: none;"></iframe>
+      <video id="showreel-video" src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
     </div>
   </div>
 </div>
@@ -1487,17 +1487,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = modal.querySelector('.showreel-modal-close');
   const video = document.getElementById('showreel-video');
 
-  // YouTube video configured to act as an auto-playing, muted, looping GIF
-  const videoSrc = "https://www.youtube.com/embed/F74LLDhAhqw?autoplay=1&mute=1&loop=1&playlist=F74LLDhAhqw&controls=0&modestbranding=1&rel=0&disablekb=1";
-
   function openModal() {
     modal.classList.add('active');
-    if(video) video.src = videoSrc;
+    if(video) video.play().catch(e => console.log('Autoplay blocked', e));
   }
 
   function closeModal() {
     modal.classList.remove('active');
-    if(video) video.src = "";
+    if(video) {
+      video.pause();
+      video.currentTime = 0;
+    }
   }
 
   if(btnShowreel) btnShowreel.addEventListener('click', openModal);
