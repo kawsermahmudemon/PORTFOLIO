@@ -1207,7 +1207,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ══════════ CONTACT ══════════ */
-.contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--sp-12); align-items: start; }
+.contact-grid { display: flex; justify-content: center; max-width: 600px; margin: 0 auto; width: 100%; }
 .contact-info { display: flex; flex-direction: column; gap: 14px; }
 .contact-card { display: flex; align-items: center; gap: 14px; padding: 18px 22px !important; }
 .contact-card-icon { font-size: 1.3rem; }
