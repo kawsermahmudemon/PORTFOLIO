@@ -438,3 +438,40 @@
   display: flex; align-items: center; justify-content: center;
   font-size: 1rem; color: #000;
 }
+
+/* ══════════ IMPRESSIVE MICRO-ANIMATIONS ══════════ */
+@keyframes continuous-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes continuous-float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px var(--glow); }
+  50% { box-shadow: 0 0 30px var(--glow-strong); }
+}
+
+@keyframes heartbeat-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Floating Badges */
+.float { animation: continuous-float 6s ease-in-out infinite; }
+.float-reverse { animation: continuous-float-reverse 7s ease-in-out infinite; }
+.float-slow { animation: continuous-float 8s ease-in-out infinite 1s; }
+
+/* 3D Tilt Project Cards (CSS only fallback for JS) */
+.project-card {
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+}
+.project-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-1);
+}
+
+/* ══════════ END IMPRESSIVE ANIMATIONS ══════════ */
