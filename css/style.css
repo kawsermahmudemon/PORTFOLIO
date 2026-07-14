@@ -696,7 +696,7 @@ h1, h2, h3, h4, h5, h6 {
   50% { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0); }
 }
 .hero-title {
-  font-size: clamp(4rem, 10vw, 8rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 900;
   margin-bottom: var(--sp-4);
   letter-spacing: -0.05em;
