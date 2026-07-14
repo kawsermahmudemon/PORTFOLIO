@@ -23,11 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
         let charIndex = 0;
         el.innerHTML = parts.map(part => {
           if (part.startsWith("<")) return part; // HTML tag, keep as-is
-          return part.split("").map(char => {
-            if (char === " ") return " ";
-            const span = `<span class="split-char" style="transition-delay:${charIndex * 0.03}s">${char}</span>`;
-            charIndex++;
-            return span;
+          
+          const words = part.split(/(\s+)/);
+          return words.map(word => {
+            if (!word.trim()) {
+              // It's a space or whitespace, keep it as is
+              if (word === " ") charIndex++; // optional: increment index for space to keep timing consistent
+              return word;
+            }
+            
+            const wordSpans = word.split("").map(char => {
+              const span = `<span class="split-char" style="transition-delay:${charIndex * 0.03}s">${char}</span>`;
+              charIndex++;
+              return span;
+            }).join("");
+            
+            return `<span style="display: inline-block; white-space: nowrap;">${wordSpans}</span>`;
           }).join("");
         }).join("");
 
