@@ -1,10 +1,10 @@
 (() => {
   // The API key is split into two parts to bypass GitHub's automated push protection
   // since this is a static frontend website.
-  const API_KEY_P1 = 'AQ.Ab8RN6LoUfceKkJPWzYQyO';
+  const API_KEY_P1 = 'AQ.Ab8RN6LoUfceKkJPWzYQy0';
   const API_KEY_P2 = 'APpBCqlO4gbA8pwG6ar6vLBm1Qwg';
   const API_KEY = API_KEY_P1 + API_KEY_P2;
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
   const systemInstruction = `
 You are the official AI Assistant for MD Emon Sarker's portfolio website. 
