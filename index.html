@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Emon | Full Stack Developer & Creative Technologist</title>
   <meta name="description" content="Portfolio of Emon — Full Stack Developer and Creative Technologist crafting next-generation digital experiences with clean code and cinematic design.">
   <meta name="keywords" content="Emon, portfolio, full stack developer, web developer, creative technologist, UI/UX designer">
@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="css/context-menu.css">
   <link rel="stylesheet" href="css/showreel.css">
   <link rel="stylesheet" href="css/blog-modal.css">
+  <link rel="stylesheet" href="css/responsive.css">
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
@@ -138,36 +139,44 @@
     <div class="orb orb-3"></div>
   </div>
 
-  <div class="container hero-content">
-    <div class="hero-badge" data-animate="fade-up">
-      <span class="badge-dot"></span>
-      <span id="greeting">Good Evening</span> — Available for work
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <div class="hero-badge" data-animate="fade-up">
+        <span class="badge-dot"></span>
+        <span id="greeting">Good Evening</span> — Available for work
+      </div>
+      <h1 class="hero-title" data-animate="split-chars">
+        I'm <span class="gradient-text">Emon Sarker</span>
+      </h1>
+      <p class="hero-subtitle" data-animate="fade-up" data-delay="0.3">
+        <span id="typed-text"></span><span class="typed-cursor">|</span>
+      </p>
+      <p class="hero-description" data-animate="fade-up" data-delay="0.5">
+        Incoming CS Freshman at <strong>Kent State University (Fall '26)</strong>. An award-winning youth technologist, researcher, and social entrepreneur engineering low-cost solutions for climate resilience, rural health, and education.
+      </p>
+      <div class="hero-cta" data-animate="fade-up" data-delay="0.7">
+        <a href="#projects" class="btn-primary magnetic" data-magnetic>
+          <span>View My Work</span>
+          <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <button id="btn-showreel" class="btn-ghost magnetic" data-magnetic>
+          <span>🎥 Watch Reel</span>
+        </button>
+        <button class="btn-ghost magnetic copy-email" data-magnetic aria-label="Copy Email">
+          <span class="copy-text">Copy Email</span>
+          <span class="copy-success" style="display:none; color:var(--success);">Copied! ✓</span>
+        </button>
+        <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" class="btn-ghost magnetic" data-magnetic aria-label="LinkedIn Profile">
+          <span>LinkedIn</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
     </div>
-    <h1 class="hero-title" data-animate="split-chars">
-      I'm <span class="gradient-text">Emon Sarker</span>
-    </h1>
-    <p class="hero-subtitle" data-animate="fade-up" data-delay="0.3">
-      <span id="typed-text"></span><span class="typed-cursor">|</span>
-    </p>
-    <p class="hero-description" data-animate="fade-up" data-delay="0.5">
-      Incoming CS Freshman at <strong>Kent State University (Fall '26)</strong>. An award-winning youth technologist, researcher, and social entrepreneur engineering low-cost solutions for climate resilience, rural health, and education.
-    </p>
-    <div class="hero-cta" data-animate="fade-up" data-delay="0.7">
-      <a href="#projects" class="btn-primary magnetic" data-magnetic>
-        <span>View My Work</span>
-        <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </a>
-      <button id="btn-showreel" class="btn-ghost magnetic" data-magnetic>
-        <span>🎥 Watch Reel</span>
-      </button>
-      <button class="btn-ghost magnetic copy-email" data-magnetic aria-label="Copy Email">
-        <span class="copy-text">Copy Email</span>
-        <span class="copy-success" style="display:none; color:var(--success);">Copied! ✓</span>
-      </button>
-      <a href="https://www.linkedin.com/in/kawsermahmudemon/" target="_blank" class="btn-ghost magnetic" data-magnetic aria-label="LinkedIn Profile">
-        <span>LinkedIn</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
+    <div class="hero-portrait" data-animate="fade-left" data-delay="0.6">
+      <div class="hero-portrait-frame">
+        <img src="images/emon-profile.jpg" alt="Emon Sarker — Full Stack Developer" loading="eager">
+        <div class="hero-portrait-glow"></div>
+      </div>
     </div>
   </div>
 
@@ -205,7 +214,7 @@
     <div class="about-grid">
       <div class="about-visual" data-animate="fade-right">
         <div class="about-image-frame">
-          <img src="C:/Users/mdemo/.gemini/antigravity-ide/brain/ef423e73-6640-4491-967c-40984a568557/emon_profile_1783937589013.png" alt="Md Emon Sarker" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);">
+          <img src="images/emon-profile.jpg" alt="Md Emon Sarker — Full Stack Developer & Creative Technologist" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:var(--radius);">
           <div class="about-image-border"></div>
         </div>
         <div class="about-floating-card glass-card" data-animate="scale-in" data-delay="0.4">
