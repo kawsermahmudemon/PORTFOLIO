@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const btnLoading = btn.querySelector('.btn-loading');
       const btnSuccess = btn.querySelector('.btn-success');
       
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault(); // Prevent page reload
         
         // Show loading state
@@ -26,25 +26,52 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = form.querySelector('input[name="name"]')?.value || '';
         const email = form.querySelector('input[name="email"]')?.value || '';
         const message = form.querySelector('textarea[name="message"]')?.value || '';
+        const subject = form.querySelector('input[name="subject"]')?.value || `Portfolio Contact from ${name}`;
         
-        const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-        
-        // Open mail client
-        window.location.href = `mailto:mdemonsarker.personal@gmail.com?subject=${subject}&body=${body}`;
+        // WEB3FORMS API KEY
+        // Emon, you need to get a free access key from https://web3forms.com/ 
+        // Put your email there, they will send you a key. Replace 'YOUR_ACCESS_KEY_HERE' with it.
+        const ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
 
-        // Reset UI immediately
-        if (btnLoading) btnLoading.style.display = 'none';
-        
-        if (btnSuccess) {
-          btnSuccess.style.display = 'inline-block';
-        } else {
-          btn.innerHTML = `✅ Mail Client Opened!`;
+        try {
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              access_key: ACCESS_KEY,
+              name: name,
+              email: email,
+              subject: subject,
+              message: message,
+              from_name: "Portfolio Website"
+            })
+          });
+
+          const result = await response.json();
+          
+          if (response.ok) {
+            // Success
+            if (btnLoading) btnLoading.style.display = 'none';
+            if (btnSuccess) {
+              btnSuccess.style.display = 'inline-block';
+            } else {
+              btn.innerHTML = `✅ Message Sent!`;
+            }
+            btn.style.background = '#00ffcc';
+            btn.style.color = '#000';
+            form.reset();
+          } else {
+            throw new Error(result.message || 'Something went wrong');
+          }
+        } catch (error) {
+          console.error(error);
+          if (btnLoading) btnLoading.style.display = 'none';
+          btn.innerHTML = `❌ Failed to Send`;
+          btn.style.background = '#ff4444';
         }
-        
-        btn.style.background = '#00ffcc';
-        btn.style.color = '#000';
-        form.reset();
         
         // Revert after 3 seconds
         setTimeout(() => {
@@ -53,10 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.style.color = '';
           
           if (btnSuccess) btnSuccess.style.display = 'none';
-          if (btnText) btnText.style.display = 'inline-block';
-          
+          if (btnText) {
+            btnText.style.display = 'inline-block';
+            btn.innerHTML = '';
+            btn.appendChild(btnText);
+            if(btnLoading) btn.appendChild(btnLoading);
+            if(btnSuccess) btn.appendChild(btnSuccess);
+          } else {
+            btn.innerHTML = `Send Message`;
+          }
         }, 3000);
-    }
+      });
   }
 
   // Copy Email Logic
