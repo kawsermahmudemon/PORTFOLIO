@@ -685,6 +685,28 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   letter-spacing: 0.5px;
 }
+.hero-description-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+  opacity: 0.5;
+}
+.hero-description {
+  flex: 2;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  text-align: center;
+  font-weight: 300;
+}
 .badge-dot {
   width: 7px; height: 7px;
   background: var(--success);
