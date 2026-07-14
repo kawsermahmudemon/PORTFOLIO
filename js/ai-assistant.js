@@ -81,8 +81,8 @@ Personality/Style:
   // Simple Markdown to HTML parser
   function parseMarkdown(text) {
     let html = text
-      .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>') // Bold
-      .replace(/\\*(.*?)\\*/g, '<em>$1</em>') // Italic
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+      .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
       .replace(/\n/g, '<br>'); // Newlines
     return html;
   }
@@ -163,7 +163,7 @@ Personality/Style:
 
   function appendMessage(role, htmlContent) {
     const msgDiv = document.createElement('div');
-    msgDiv.className = \`ai-message \${role}\`;
+    msgDiv.className = `ai-message ${role}`;
     msgDiv.innerHTML = htmlContent;
     chatBody.appendChild(msgDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
