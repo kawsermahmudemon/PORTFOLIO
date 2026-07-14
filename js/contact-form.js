@@ -22,33 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.innerHTML = `<span style="display:inline-block; animation: spin 1s linear infinite;">⏳</span> Sending...`;
         }
         
-        // Simulate network request
+        // Grab form data
+        const name = form.querySelector('input[name="name"]')?.value || '';
+        const email = form.querySelector('input[name="email"]')?.value || '';
+        const message = form.querySelector('textarea[name="message"]')?.value || '';
+        
+        const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        
+        // Open mail client
+        window.location.href = `mailto:mdemonsarker.personal@gmail.com?subject=${subject}&body=${body}`;
+
+        // Reset UI immediately
+        if (btnLoading) btnLoading.style.display = 'none';
+        
+        if (btnSuccess) {
+          btnSuccess.style.display = 'inline-block';
+        } else {
+          btn.innerHTML = `✅ Mail Client Opened!`;
+        }
+        
+        btn.style.background = '#00ffcc';
+        btn.style.color = '#000';
+        form.reset();
+        
+        // Revert after 3 seconds
         setTimeout(() => {
-          // Success State
-          if (btnLoading) btnLoading.style.display = 'none';
+          btn.style.pointerEvents = 'auto';
+          btn.style.background = ''; // Revert to CSS default
+          btn.style.color = '';
           
-          if (btnSuccess) {
-            btnSuccess.style.display = 'inline-block';
-          } else {
-            btn.innerHTML = `✅ Message Sent!`;
-          }
+          if (btnSuccess) btnSuccess.style.display = 'none';
+          if (btnText) btnText.style.display = 'inline-block';
           
-          btn.style.background = '#00ffcc';
-          btn.style.color = '#000';
-          form.reset();
-          
-          // Revert after 3 seconds
-          setTimeout(() => {
-            btn.style.pointerEvents = 'auto';
-            btn.style.background = ''; // Revert to CSS default
-            btn.style.color = '';
-            
-            if (btnSuccess) btnSuccess.style.display = 'none';
-            if (btnText) btnText.style.display = 'inline-block';
-            
-          }, 3000);
-        }, 1500);
-      });
+        }, 3000);
     }
   }
 
